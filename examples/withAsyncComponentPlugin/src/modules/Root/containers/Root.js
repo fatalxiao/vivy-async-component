@@ -18,40 +18,34 @@ import './Root.scss';
 
 const Root = ({
     route, menu, customizedAsyncComponentLoading
-}) => {
+}) => (
+    <div className="root">
 
-    console.log('customizedAsyncComponentLoading::', customizedAsyncComponentLoading);
+        <PageLoading visible={customizedAsyncComponentLoading}
+                     showStripes={false}/>
 
-    return (
-        <div className="root">
-
-            <PageLoading visible={customizedAsyncComponentLoading}
-                         showStripes={false}/>
-
-            <div className="menu">
-                <h2>Module Root</h2>
-                <h3>Menu:</h3>
-                <ul>
-                    {
-                        menu?.map((item, index) =>
-                            <li key={index}>
-                                <NavLink to={item?.route}>
-                                    {item?.name}
-                                </NavLink>
-                            </li>
-                        )
-                    }
-                </ul>
-            </div>
-
-            <div className="content">
-                {renderRoutes(route.routes)}
-            </div>
-
+        <div className="menu">
+            <h2>Module Root</h2>
+            <h3>Menu:</h3>
+            <ul>
+                {
+                    menu?.map((item, index) =>
+                        <li key={index}>
+                            <NavLink to={item?.route}>
+                                {item?.name}
+                            </NavLink>
+                        </li>
+                    )
+                }
+            </ul>
         </div>
-    );
 
-};
+        <div className="content">
+            {renderRoutes(route.routes)}
+        </div>
+
+    </div>
+);
 
 Root.propTypes = {
     route: PropTypes.object,
@@ -60,6 +54,11 @@ Root.propTypes = {
 };
 
 export default connect(state => ({
+
+    // get menu config from root model
     menu: state.root,
+
+    // get async component loading from customized name space model
     customizedAsyncComponentLoading: state.customizedAsyncComponentLoading
+
 }))(Root);
