@@ -12,7 +12,7 @@ import {configureRoutes} from './routes';
 
 // Import Vivy
 import Vivy from 'vivy';
-import VivyAsyncComponent from '../../../src';
+import VivyAsyncComponent from 'vivy-async-component';
 
 // Create browser history
 const history = createBrowserHistory();
@@ -22,7 +22,7 @@ const vivy = Vivy(history);
 
 // Apply async component plugin
 vivy.use(VivyAsyncComponent({
-    // customized AsyncComponentLoading model nameSpace
+    // Customized AsyncComponentLoading model nameSpace
     modelNameSpace: 'customizedAsyncComponentLoading'
 }));
 
