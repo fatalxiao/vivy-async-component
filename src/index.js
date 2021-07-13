@@ -12,13 +12,23 @@ import createAsyncComponentLoadingMiddleware from './middlewares/AsyncComponentL
 export AsyncComponent from './components/AsyncComponent';
 
 /**
+ * Default vivy-api options
+ * @type {{modelNameSpace: string}}
+ */
+const DEFAULT_OPTIONS = {
+    modelNameSpace: 'asyncComponentLoading'
+};
+
+/**
  * Create Vivy async component plugin
  * @param options
  * @returns {{}}
  */
 export default function createVivyAsyncComponentPlugin(options = {}) {
 
-    const {modelNameSpace} = options;
+    const op = {...DEFAULT_OPTIONS, ...options};
+
+    const {modelNameSpace} = op;
 
     return {
         extraMiddlewares: [
