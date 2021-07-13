@@ -14,7 +14,7 @@ import {configureRoutes} from './routes';
 import Vivy from 'vivy';
 import VivyAsyncComponent from '../../../src';
 
-// Prepare vivy store
+// Create browser history
 const history = createBrowserHistory();
 
 // Create vivy
