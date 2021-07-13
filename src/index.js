@@ -16,9 +16,9 @@ export AsyncComponent from './components/AsyncComponent';
  * @param options
  * @returns {{}}
  */
-export default function createVivyAsyncComponentPlugin(options) {
+export default function createVivyAsyncComponentPlugin(options = {}) {
 
-    const modelNameSpace = options?.modelNameSpace;
+    const {modelNameSpace} = options;
 
     return {
         extraMiddlewares: [
