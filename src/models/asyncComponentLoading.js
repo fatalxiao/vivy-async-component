@@ -2,24 +2,31 @@
  * @file asyncComponentLoading.js
  */
 
-export default {
-    nameSpace: 'asyncComponentLoading',
-    state: false,
-    reducers: {
+/**
+ * Create asyncComponentLoading model
+ * @param nameSpace
+ * @returns {{}}
+ */
+export default function createAsyncComponentLoading(nameSpace) {
+    return {
+        nameSpace: nameSpace || 'asyncComponentLoading',
+        state: false,
+        reducers: {
 
-        /**
-         * start loading async component
-         */
-        start: () => {
-            return true;
-        },
+            /**
+             * Start loading async component
+             */
+            start: () => {
+                return true;
+            },
 
-        /**
-         * load async component complete
-         */
-        complete: () => {
-            return false;
+            /**
+             * Load async component complete
+             */
+            complete: () => {
+                return false;
+            }
+
         }
-
-    }
-};
+    };
+}

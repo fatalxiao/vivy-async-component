@@ -21,7 +21,10 @@ const history = createBrowserHistory();
 const vivy = Vivy(history);
 
 // Apply async component plugin
-vivy.use(VivyAsyncComponent());
+vivy.use(VivyAsyncComponent({
+    // customized AsyncComponentLoading model nameSpace
+    modelNameSpace: 'customizedAsyncComponentLoading'
+}));
 
 // Create store after configuration
 const store = vivy.createStore();

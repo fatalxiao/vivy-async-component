@@ -3,10 +3,10 @@
  */
 
 // Models
-import asyncComponentLoading from './models/asyncComponentLoading';
+import createAsyncComponentLoading from './models/asyncComponentLoading';
 
 // Middlewares
-import AsyncComponentLoadingMiddleware from './middlewares/AsyncComponentLoadingMiddleware';
+import createAsyncComponentLoadingMiddleware from './middlewares/AsyncComponentLoadingMiddleware';
 
 // Components
 export AsyncComponent from './components/AsyncComponent';
@@ -17,12 +17,16 @@ export AsyncComponent from './components/AsyncComponent';
  * @returns {{}}
  */
 export default function createVivyAsyncComponentPlugin(options) {
+
+    const modelNameSpace = options?.modelNameSpace;
+
     return {
         extraMiddlewares: [
-            AsyncComponentLoadingMiddleware
+            createAsyncComponentLoadingMiddleware(modelNameSpace)
         ],
         extraModels: [
-            asyncComponentLoading
+            createAsyncComponentLoading(modelNameSpace)
         ]
     };
+
 };

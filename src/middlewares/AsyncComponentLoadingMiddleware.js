@@ -8,59 +8,65 @@ import {
 } from '../actionTypes/AsyncComponentLoading';
 
 /**
- * timeout duration
+ * Timeout duration
  * @type {number}
  */
 const DURATION = 1000;
 
 /**
- * component loading complete timeout id
+ * Component loading complete timeout id
  * @type {null}
  */
 let timeoutId = null;
 
-export default ({dispatch, getState}) => next => action => {
+export default function (modelNameSpace) {
+    return ({dispatch, getState}) => next => action => {
 
-    if (!action) {
-        return next(action);
-    }
+        if (!action) {
+            return next(action);
+        }
 
-    // whether async component is loading
-    const loading = getState()?.['@@VIVY/ASYNC_COMPONENT_LOADING'];
+        // Whether async component is loading
+        const loading = getState()?.[modelNameSpace];
 
-    // start loading
-    if (action.type === ASYNC_COMPONENT_LOADING_START) {
+        // Start loading
+        if (action.type === ASYNC_COMPONENT_LOADING_START) {
 
-        // clear timeout
-        timeoutId && clearTimeout(timeoutId);
-
-        // dispatch start loading component action
-        !loading && next(action);
-
-    }
-
-    // loading complete
-    else if (action.type === ASYNC_COMPONENT_LOADING_COMPLETE) {
-
-        // clear time out
-        timeoutId && clearTimeout(timeoutId);
-
-        // set timeout
-        timeoutId = setTimeout(() => {
-
-            // clear time out
+            // Clear timeout
             timeoutId && clearTimeout(timeoutId);
 
-            // dispatch loading component complete action
-            next(action);
+            // Dispatch start loading component action
+            !loading && next({
+                type: `${modelNameSpace}/start`
+            });
 
-        }, DURATION);
+        }
 
-    }
+        // Loading complete
+        else if (action.type === ASYNC_COMPONENT_LOADING_COMPLETE) {
 
-    // other actions
-    else {
-        return next(action);
-    }
+            // Clear time out
+            timeoutId && clearTimeout(timeoutId);
 
-};
+            // Set timeout
+            timeoutId = setTimeout(() => {
+
+                // Clear time out
+                timeoutId && clearTimeout(timeoutId);
+
+                // Dispatch loading component complete action
+                next({
+                    type: `${modelNameSpace}/complete`
+                });
+
+            }, DURATION);
+
+        }
+
+        // Other actions
+        else {
+            return next(action);
+        }
+
+    };
+}
