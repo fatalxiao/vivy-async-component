@@ -12,7 +12,7 @@ import {configureRoutes} from './routes';
 
 // Import Vivy
 import Vivy from 'vivy';
-import VivyAsyncComponent from 'vivy-async-component';
+import VivyAsyncComponent from '../../../src';
 
 // Create browser history
 const history = createBrowserHistory();
