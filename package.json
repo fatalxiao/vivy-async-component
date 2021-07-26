@@ -20,7 +20,8 @@
         "url": "https://github.com/fatalxiao/vivy-async-component"
     },
     "keywords": [
-        "redux"
+        "redux",
+        "vivy"
     ],
     "license": "MIT",
     "bugs": {
