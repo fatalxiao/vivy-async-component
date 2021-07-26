@@ -19,8 +19,13 @@ const DURATION = 1000;
  */
 let timeoutId = null;
 
+/**
+ * Create Async Component Loading Middleware
+ * @param modelNameSpace
+ * @returns {function({getState: *}): function(*): function(*=): (*|undefined)}
+ */
 export default function (modelNameSpace) {
-    return ({dispatch, getState}) => next => action => {
+    return ({getState}) => next => action => {
 
         if (!action) {
             return next(action);

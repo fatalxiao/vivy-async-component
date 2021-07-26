@@ -12,7 +12,7 @@ import createAsyncComponentLoadingMiddleware from './middlewares/AsyncComponentL
 export AsyncComponent from './components/AsyncComponent';
 
 /**
- * Default vivy-api options
+ * Default Vivy async component options
  * @type {{modelNameSpace: string}}
  */
 const DEFAULT_OPTIONS = {
@@ -39,4 +39,4 @@ export default function createVivyAsyncComponentPlugin(options = {}) {
         ]
     };
 
-};
+}
