@@ -4,6 +4,7 @@
 
 import React, {useState, useCallback, useEffect} from 'react';
 
+// Action Types
 import {
     ASYNC_COMPONENT_LOADING_START, ASYNC_COMPONENT_LOADING_COMPLETE
 } from '../actionTypes/AsyncComponentLoading';
