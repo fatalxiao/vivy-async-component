@@ -27,10 +27,6 @@ let timeoutId = null;
 export default function (modelNameSpace) {
     return ({getState}) => next => action => {
 
-        if (!action) {
-            return next(action);
-        }
-
         // Whether async component is loading
         const loading = getState()?.[modelNameSpace];
 
