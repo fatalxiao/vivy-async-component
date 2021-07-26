@@ -8,6 +8,13 @@ import {
     ASYNC_COMPONENT_LOADING_START, ASYNC_COMPONENT_LOADING_COMPLETE
 } from '../actionTypes/AsyncComponentLoading';
 
+/**
+ * Create Async Module Component
+ * @param getComponent
+ * @param store
+ * @param getModels
+ * @returns {function(*): JSX.Element|null}
+ */
 export default (getComponent, store, getModels) => props => {
 
     /**
