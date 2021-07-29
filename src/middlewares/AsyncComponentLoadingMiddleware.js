@@ -21,14 +21,14 @@ let timeoutId = null;
 
 /**
  * Create Async Component Loading Middleware
- * @param modelNameSpace
+ * @param asyncComponentLoadingModelNameSpace
  * @returns {function({getState: *}): function(*): function(*=): (*|undefined)}
  */
-export default function (modelNameSpace) {
+export default function (asyncComponentLoadingModelNameSpace) {
     return ({getState}) => next => action => {
 
         // Whether async component is loading
-        const loading = getState()?.[modelNameSpace];
+        const loading = getState()?.[asyncComponentLoadingModelNameSpace];
 
         // Start loading
         if (action.type === ASYNC_COMPONENT_LOADING_START) {
@@ -38,7 +38,7 @@ export default function (modelNameSpace) {
 
             // Dispatch start loading component action
             !loading && next({
-                type: `${modelNameSpace}/start`
+                type: `${asyncComponentLoadingModelNameSpace}/start`
             });
 
         }
@@ -57,7 +57,7 @@ export default function (modelNameSpace) {
 
                 // Dispatch loading component complete action
                 next({
-                    type: `${modelNameSpace}/complete`
+                    type: `${asyncComponentLoadingModelNameSpace}/complete`
                 });
 
             }, DURATION);

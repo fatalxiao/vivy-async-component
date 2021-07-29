@@ -13,10 +13,10 @@ export AsyncComponent from './components/AsyncComponent';
 
 /**
  * Default Vivy async component options
- * @type {{modelNameSpace: string}}
+ * @type {{asyncComponentLoadingModelNameSpace: string}}
  */
 const DEFAULT_OPTIONS = {
-    modelNameSpace: 'asyncComponentLoading'
+    asyncComponentLoadingModelNameSpace: 'asyncComponentLoading'
 };
 
 /**
@@ -28,14 +28,14 @@ export default function createVivyAsyncComponentPlugin(options = {}) {
 
     const op = {...DEFAULT_OPTIONS, ...options};
 
-    const {modelNameSpace} = op;
+    const {asyncComponentLoadingModelNameSpace} = op;
 
     return {
         extraMiddlewares: [
-            createAsyncComponentLoadingMiddleware(modelNameSpace)
+            createAsyncComponentLoadingMiddleware(asyncComponentLoadingModelNameSpace)
         ],
         extraModels: [
-            createAsyncComponentLoading(modelNameSpace)
+            createAsyncComponentLoading(asyncComponentLoadingModelNameSpace)
         ]
     };
 
