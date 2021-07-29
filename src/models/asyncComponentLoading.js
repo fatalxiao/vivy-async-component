@@ -4,8 +4,8 @@
 
 /**
  * Create asyncComponentLoading model
- * @param nameSpace
- * @returns {{}}
+ * @param nameSpace {string}
+ * @returns {{reducers: {start: (function(): boolean), complete: (function(): boolean)}, nameSpace: string, state: boolean}}
  */
 export default function createAsyncComponentLoading(nameSpace) {
     return {

@@ -21,8 +21,8 @@ const DEFAULT_OPTIONS = {
 
 /**
  * Create Vivy async component plugin
- * @param options
- * @returns {{}}
+ * @param options {Object}
+ * @returns {{extraModels: ({}|*)[], extraMiddlewares: ((function({getState: *}): function(*): function(*=): (*|undefined))|*)[]}}
  */
 export default function createVivyAsyncComponentPlugin(options = {}) {
 

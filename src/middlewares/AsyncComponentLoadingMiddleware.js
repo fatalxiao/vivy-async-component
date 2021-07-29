@@ -21,7 +21,7 @@ let timeoutId = null;
 
 /**
  * Create Async Component Loading Middleware
- * @param asyncComponentLoadingModelNameSpace
+ * @param asyncComponentLoadingModelNameSpace {string}
  * @returns {function({getState: *}): function(*): function(*=): (*|undefined)}
  */
 export default function (asyncComponentLoadingModelNameSpace) {

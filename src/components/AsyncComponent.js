@@ -11,9 +11,9 @@ import {
 
 /**
  * Create Async Module Component
- * @param getComponent
- * @param store
- * @param getModels
+ * @param getComponent {Function}
+ * @param store {Object}
+ * @param getModels {Function[]}
  * @returns {function(*): JSX.Element|null}
  */
 export default (getComponent, store, getModels) => props => {
