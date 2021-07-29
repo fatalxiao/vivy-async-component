@@ -13,7 +13,7 @@ import {configureRoutes} from './routes';
 // Import Vivy
 import Vivy from 'vivy';
 import VivyRouter from 'vivy-router';
-import VivyAsyncComponent from '../../../src';
+import VivyAsyncComponent from 'vivy-async-component';
 
 // Create browser history
 const history = createBrowserHistory();
@@ -30,7 +30,7 @@ vivy.use(VivyRouter({
 vivy.use(VivyAsyncComponent({
     // Customized AsyncComponentLoading model nameSpace
     // default is "asyncComponentLoading"
-    modelNameSpace: 'customizedAsyncComponentLoading'
+    asyncComponentLoadingModelNameSpace: 'customizedAsyncComponentLoading'
 }));
 
 // Create store after configuration
