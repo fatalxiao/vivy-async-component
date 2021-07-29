@@ -18,8 +18,8 @@
         "react-router-config": "^5.1.1",
         "react-router-dom": "^5.2.0",
         "vivy": "^0.3.0",
-        "vivy-async-component": "^0.2.1",
-        "vivy-router": "^0.2.2"
+        "vivy-async-component": "^0.2.2",
+        "vivy-router": "^0.2.3"
     },
     "devDependencies": {
         "@babel/core": "^7.14.8",
