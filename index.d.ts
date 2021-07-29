@@ -1,3 +1,10 @@
+import * as AsyncComponent from './src/components/AsyncComponent';
+
+/**
+ * AsyncComponent
+ */
+export {AsyncComponent};
+
 export interface VivyAsyncComponentPluginOption {
 
     /**
