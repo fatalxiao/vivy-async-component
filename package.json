@@ -1,7 +1,7 @@
 {
     "name": "vivy-async-component",
     "author": "liangxiaojun",
-    "version": "0.2.3",
+    "version": "0.2.4",
     "description": "Vivy async component plugin",
     "main": "./dist/index.js",
     "files": [
@@ -28,7 +28,7 @@
         "url": "https://github.com/fatalxiao/vivy-async-component/issues"
     },
     "dependencies": {
-        "react": "^17.0.2"
+        "react": ">=16.x"
     },
     "devDependencies": {
         "@babel/core": "^7.14.8",
