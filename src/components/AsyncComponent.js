@@ -14,17 +14,18 @@ import {
  * @param getComponent {Function}
  * @param store {Object}
  * @param getModels {Function[]}
+ * @param getReducers {Function[]}
  * @returns {function(*): JSX.Element|null}
  */
-export default (getComponent, store, getModels) => props => {
+export default (getComponent, store, getModels, getReducers) => props => {
 
     /**
-     * component from getComponent
+     * Component from getComponent
      */
     const [Cpn, setCpn] = useState(null);
 
     /**
-     * dispatch starting load component action
+     * Dispatch starting load component action
      * @type {(function(): void)|*}
      */
     const loadStartCallback = useCallback(() => {
@@ -34,7 +35,7 @@ export default (getComponent, store, getModels) => props => {
     }, []);
 
     /**
-     * dispatch loading component complete action
+     * Dispatch loading component complete action
      * @type {(function(): void)|*}
      */
     const loadCompleteCallback = useCallback(() => {
@@ -44,7 +45,7 @@ export default (getComponent, store, getModels) => props => {
     }, []);
 
     /**
-     * load model from getModel
+     * Load model from getModel
      * @type {(function(*=): Promise<void>)|*}
      */
     const loadModel = useCallback(async getModel => {
@@ -54,12 +55,12 @@ export default (getComponent, store, getModels) => props => {
         }
 
         const model = await getModel();
-        store?.registerModel(model.default || model);
+        store?.registerModel(model?.default || model);
 
     }, []);
 
     /**
-     * load models from getModels
+     * Load models from getModels
      * @type {(function(): Promise<void>)|*}
      */
     const loadModels = useCallback(async () => {
@@ -75,7 +76,38 @@ export default (getComponent, store, getModels) => props => {
     ]);
 
     /**
-     * load component from getComponent
+     * Load reducer from getReducer
+     * @type {(function(*=): Promise<void>)|*}
+     */
+    const loadReducer = useCallback(async getReducer => {
+
+        if (!getReducer || typeof getReducer !== 'function') {
+            return;
+        }
+
+        const reducer = await getReducer();
+        store?.registerReducer(reducer?.default || reducer);
+
+    }, []);
+
+    /**
+     * Load reducers from getReducers
+     * @type {(function(): Promise<void>)|*}
+     */
+    const loadReducers = useCallback(async () => {
+
+        if (!getReducers || getReducers?.length < 1) {
+            return;
+        }
+
+        await Promise.all(getReducers.map(getReducer => loadReducer(getReducer)));
+
+    }, [
+        loadReducer
+    ]);
+
+    /**
+     * Load component from getComponent
      * @type {(function(): Promise<void>)|*}
      */
     const loadComponent = useCallback(async () => {
@@ -90,7 +122,7 @@ export default (getComponent, store, getModels) => props => {
     }, []);
 
     /**
-     * init getting models and component
+     * Init getting models and component
      * @type {(function(): Promise<void>)|*}
      */
     const init = useCallback(async () => {
@@ -102,19 +134,20 @@ export default (getComponent, store, getModels) => props => {
         loadStartCallback();
 
         await loadModels();
+        await loadReducers();
         await loadComponent();
 
         loadCompleteCallback();
 
     }, [
         Cpn,
-        loadCompleteCallback, loadComponent, loadModels, loadStartCallback
+        loadStartCallback, loadCompleteCallback, loadModels, loadReducers, loadComponent
     ]);
 
     useEffect(() => {
 
         /**
-         * call init
+         * Call init
          * @returns {Promise<void>}
          */
         async function callInit() {
