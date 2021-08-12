@@ -77,16 +77,16 @@ export default (getComponent, store, getModels, getReducers) => props => {
 
     /**
      * Load reducer from getReducer
-     * @type {(function(*=): Promise<void>)|*}
+     * @type {(function(*=, *=): Promise<void>)|*}
      */
-    const loadReducer = useCallback(async getReducer => {
+    const loadReducer = useCallback(async (nameSpace, getReducer) => {
 
-        if (!getReducer || typeof getReducer !== 'function') {
+        if (!nameSpace || !getReducer || typeof getReducer !== 'function') {
             return;
         }
 
         const reducer = await getReducer();
-        store?.registerReducer(reducer?.default || reducer);
+        store?.registerReducer(nameSpace, reducer?.default || reducer);
 
     }, []);
 
@@ -96,11 +96,15 @@ export default (getComponent, store, getModels, getReducers) => props => {
      */
     const loadReducers = useCallback(async () => {
 
-        if (!getReducers || getReducers?.length < 1) {
+        if (!getReducers) {
             return;
         }
 
-        await Promise.all(getReducers.map(getReducer => loadReducer(getReducer)));
+        await Promise.all(
+            Object.entries(getReducers).map(([nameSpace, getReducer]) =>
+                loadReducer(nameSpace, getReducer)
+            )
+        );
 
     }, [
         loadReducer
