@@ -13,7 +13,7 @@ export AsyncComponent from './components/AsyncComponent';
 
 /**
  * Default Vivy async component options
- * @type {{asyncComponentLoadingModelNameSpace: string}}
+ * @type {Object}
  */
 const DEFAULT_OPTIONS = {
     asyncComponentLoadingModelNameSpace: 'asyncComponentLoading'
@@ -22,9 +22,9 @@ const DEFAULT_OPTIONS = {
 /**
  * Create Vivy async component plugin
  * @param options {Object}
- * @returns {{extraModels: ({}|*)[], extraMiddlewares: ((function({getState: *}): function(*): function(*=): (*|undefined))|*)[]}}
+ * @returns {Object}
  */
-export default function createVivyAsyncComponentPlugin(options = {}) {
+export default function VivyAsyncComponent(options = {}) {
 
     const op = {...DEFAULT_OPTIONS, ...options};
 

@@ -18,4 +18,4 @@ export interface VivyAsyncComponentPluginOption {
  * Create Vivy async component plugin
  * @param options
  */
-export default function createVivyAsyncComponentPlugin(options?: VivyAsyncComponentPluginOption);
+export default function VivyAsyncComponent(options?: VivyAsyncComponentPluginOption);
