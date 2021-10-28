@@ -1,4 +1,4 @@
-import * as AsyncComponent from './src/components/AsyncComponent';
+import * as AsyncComponent from './dist/components/AsyncComponent';
 
 /**
  * AsyncComponent
