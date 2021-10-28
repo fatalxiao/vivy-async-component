@@ -22,7 +22,7 @@ export default (getComponent, store, getModels, getReducers) => props => {
     /**
      * Component from getComponent
      */
-    const [Cpn, setCpn] = useState(null);
+    const [Cpt, setCpt] = useState(null);
 
     /**
      * Dispatch starting load component action
@@ -121,7 +121,7 @@ export default (getComponent, store, getModels, getReducers) => props => {
         }
 
         const component = await getComponent();
-        setCpn(component.default || component);
+        setCpt(component.default || component);
 
     }, []);
 
@@ -131,7 +131,7 @@ export default (getComponent, store, getModels, getReducers) => props => {
      */
     const init = useCallback(async () => {
 
-        if (Cpn) {
+        if (Cpt) {
             return;
         }
 
@@ -144,7 +144,7 @@ export default (getComponent, store, getModels, getReducers) => props => {
         loadCompleteCallback();
 
     }, [
-        Cpn,
+        Cpt,
         loadStartCallback, loadCompleteCallback, loadModels, loadReducers, loadComponent
     ]);
 
@@ -164,8 +164,8 @@ export default (getComponent, store, getModels, getReducers) => props => {
         init
     ]);
 
-    return Cpn ?
-        <Cpn {...props}/>
+    return Cpt ?
+        <Cpt {...props}/>
         :
         null;
 
