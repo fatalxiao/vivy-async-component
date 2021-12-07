@@ -1,0 +1,8 @@
+{
+    "upgrade": true,
+    "reject": [
+        "history",
+        "react-router",
+        "react-router-dom"
+    ]
+}

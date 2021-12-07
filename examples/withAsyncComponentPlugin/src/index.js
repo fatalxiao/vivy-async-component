@@ -7,12 +7,11 @@ import {render} from 'react-dom';
 import {createBrowserHistory} from 'history';
 import {renderRoutes} from 'react-router-config';
 import {Provider} from 'react-redux';
-import {ConnectedRouter} from 'connected-react-router';
 import {configureRoutes} from './routes';
 
 // Import Vivy
 import Vivy from 'vivy';
-import VivyRouter from 'vivy-router';
+import VivyRouter, {ConnectedRouter} from 'vivy-router';
 import VivyAsyncComponent from 'vivy-async-component';
 
 // Create browser history
@@ -30,7 +29,7 @@ vivy.use(VivyRouter({
 vivy.use(VivyAsyncComponent({
     // Customized AsyncComponentLoading model nameSpace
     // default is "asyncComponentLoading"
-    asyncComponentLoadingModelNameSpace: 'customizedAsyncComponentLoading'
+    // asyncComponentLoadingModelNameSpace: 'customizedAsyncComponentLoading'
 }));
 
 // Create store after configuration

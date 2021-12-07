@@ -18,11 +18,11 @@ import './Root.scss';
 
 const Root = ({
     route,
-    menu, customizedAsyncComponentLoading
+    menu, asyncComponentLoading
 }) => (
     <div className="root">
 
-        <PageLoading visible={customizedAsyncComponentLoading}
+        <PageLoading visible={asyncComponentLoading}
                      showStripes={false}/>
 
         <div className="menu">
@@ -53,7 +53,7 @@ Root.propTypes = {
     route: PropTypes.object,
 
     menu: PropTypes.array,
-    customizedAsyncComponentLoading: PropTypes.bool
+    asyncComponentLoading: PropTypes.bool
 
 };
 
@@ -64,6 +64,7 @@ export default connect(state => ({
 
     // Get async component loading from customized name space model
     // ( default vivy-async-component model name space is "asyncComponentLoading" )
-    customizedAsyncComponentLoading: state.customizedAsyncComponentLoading
+    // customizedAsyncComponentLoading: state.customizedAsyncComponentLoading
+    asyncComponentLoading: state.asyncComponentLoading
 
 }))(Root);
