@@ -53,6 +53,25 @@ $ npm run start
 
 ### Basic usage
 
+configureRoutes.js
+
+```js
+// Import AsyncComponent from plugin
+import {AsyncComponent} from 'vivy-async-component';
+
+export default function configureRoutes(store) {
+    return [{
+        path: '/',
+        component: AsyncComponent(() => import('path_to_your_component'), store, [
+            () => import('path_to_your_vivy_model_1'),
+            () => import('path_to_your_vivy_model_2')
+        ])
+    }];
+}
+```
+
+index.js
+
 ```js
 import React from 'react';
 import {render} from 'react-dom';
@@ -66,17 +85,11 @@ import Vivy from 'vivy';
 // Import VivyRouter and ConnectedRouter
 import VivyRouter, {ConnectedRouter} from 'vivy-router';
 
-// Import component
-import Root from './path_to_your_Root_component';
-
-// Import Vivy model
-import yourVivyModel from './path_to_your_vivy_model';
+// Import 
+import VivyAsyncComponent from 'vivy-async-component';
 
 // Routes config
-const routes = [{
-    path: '/',
-    component: Root
-}]
+import configureRoutes from 'path_to_your_configure_routes';
 
 // Create browser history
 const history = createBrowserHistory();
@@ -89,16 +102,16 @@ vivy.use(VivyRouter({
     history
 }));
 
+// Apply async component plugin
+vivy.use(VivyAsyncComponent());
+
 // Create store after configuration
 const store = vivy.createStore();
-
-// Register vivy models
-store.registerModel(yourVivyModel);
 
 render(
     <Provider store={store}>
         <ConnectedRouter history={history}>
-            {renderRoutes(routes)}
+            {renderRoutes(configureRoutes(store))}
         </ConnectedRouter>
     </Provider>,
     document.getElementById('app-container')
