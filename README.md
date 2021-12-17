@@ -23,6 +23,7 @@ A [Vivy][vivy-url] plugin to load async component and async Vivy model to easily
     * [Complete and real project example](#complete-and-real-project-example)
 * [Documentation](#documentation)
     * [Basic usage](#basic-usage)
+    * [Methods](#methods)
 
 ## Installation
 
@@ -116,4 +117,27 @@ render(
     </Provider>,
     document.getElementById('app-container')
 );
+```
+
+### Methods
+
+#### AsyncComponent
+
+`AsyncComponent(getComponent, Vivy_Store, getModels)`
+
+Example:
+
+```js
+// Import AsyncComponent from plugin
+import {AsyncComponent} from 'vivy-async-component';
+
+export default function configureRoutes(store) {
+    return [{
+        path: 'route_path',
+        component: AsyncComponent(() => import('path_to_your_component'), store, [
+            () => import('path_to_your_vivy_model_1'),
+            () => import('path_to_your_vivy_model_2')
+        ])
+    }];
+}
 ```
