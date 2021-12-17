@@ -123,7 +123,7 @@ render(
 
 #### AsyncComponent
 
-`AsyncComponent(getComponent, Vivy_Store, getModels)`
+`AsyncComponent(getComponent, VivyStoreInstance, getModels)`
 
 Example:
 
