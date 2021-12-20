@@ -2,7 +2,7 @@
     "name": "vivy-async-component",
     "author": "liangxiaojun",
     "version": "0.5.2",
-    "description": "Vivy async component plugin",
+    "description": "A plugin which loading async component and async Vivy model to easily split chunks by route.",
     "main": "./dist/index.js",
     "files": [
         "src",
@@ -20,7 +20,10 @@
         "url": "https://github.com/fatalxiao/vivy-async-component"
     },
     "keywords": [
+        "react",
         "redux",
+        "router",
+        "react-router",
         "vivy"
     ],
     "license": "MIT",
