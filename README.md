@@ -17,6 +17,8 @@
 
 A [Vivy][vivy-url] plugin to load async component and async Vivy model to easily split chunks by route.
 
+## Docs
+
 * [Installation](#installation)
 * [Examples](#examples)
     * [Examples in repository](#examples-in-repository)
