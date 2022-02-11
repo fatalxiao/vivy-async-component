@@ -5,7 +5,7 @@
 // Action Types
 import {
     ASYNC_COMPONENT_LOADING_START, ASYNC_COMPONENT_LOADING_COMPLETE
-} from '../actionTypes/AsyncComponentLoading';
+} from '../actionTypes/AsyncComponentLoadingActionType';
 
 /**
  * Timeout duration
