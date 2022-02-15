@@ -16,9 +16,9 @@
         "react-router": "^5.2.1",
         "react-router-config": "^5.1.1",
         "react-router-dom": "^5.3.0",
-        "vivy": "^2.0.0-alpha.1",
-        "vivy-async-component": "^2.0.0-alpha.0",
-        "vivy-router": "^1.0.1"
+        "vivy": "^2.0.2",
+        "vivy-async-component": "^2.0.0",
+        "vivy-router": "^2.0.0"
     },
     "devDependencies": {
         "@babel/core": "^7.17.2",
@@ -48,9 +48,9 @@
         "html-webpack-plugin": "^5.5.0",
         "postcss": "^8.4.6",
         "postcss-loader": "^6.2.1",
-        "postcss-preset-env": "^7.3.1",
+        "postcss-preset-env": "^7.3.3",
         "sass": "^1.49.7",
-        "sass-loader": "^12.4.0",
+        "sass-loader": "^12.5.0",
         "style-loader": "^3.3.1",
         "url-loader": "^4.1.1",
         "webpack": "^5.68.0",
