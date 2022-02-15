@@ -64,7 +64,6 @@
         "eslint-plugin-react": "^7.28.0",
         "eslint-plugin-react-hooks": "^4.3.0",
         "gulp": "^4.0.2",
-        "gulp-babel": "^8.0.0",
-        "gulp-clean": "^0.4.0"
+        "gulp-babel": "^8.0.0"
     }
 }
