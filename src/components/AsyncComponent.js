@@ -63,7 +63,9 @@ export default (getComponent, store, getModels, getReducers) => props => {
             models,
             reducers
         });
-    }, []);
+    }, [
+        Component, models, reducers
+    ]);
 
     /**
      * Load model from getModel
