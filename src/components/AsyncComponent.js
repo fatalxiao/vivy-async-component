@@ -156,13 +156,12 @@ export default (getComponent, store, getModels, getReducers) => props => {
         }
 
         const ComponentModule = await getComponent();
-        setComponent(ComponentModule?.default || ComponentModule);
+        const NextComponent = ComponentModule?.default || ComponentModule;
+        setComponent(NextComponent);
 
-        loadCompleteCallback();
+        return NextComponent;
 
-    }, [
-        loadCompleteCallback
-    ]);
+    }, []);
 
     /**
      * Init getting models and Component
@@ -180,9 +179,11 @@ export default (getComponent, store, getModels, getReducers) => props => {
         await loadReducers();
         await loadComponent();
 
+        loadCompleteCallback();
+
     }, [
         Component,
-        loadStartCallback, loadModels, loadReducers, loadComponent
+        loadStartCallback, loadModels, loadReducers, loadComponent, loadCompleteCallback
     ]);
 
     useEffect(() => {
