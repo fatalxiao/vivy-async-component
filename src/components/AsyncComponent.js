@@ -95,7 +95,7 @@ export default (getComponent, store, getModels, getReducers) => props => {
             return;
         }
 
-        setModels(await Promise.all(getModels.map(getModel => loadModel(getModel))) || []);
+        await setModels(await Promise.all(getModels.map(getModel => loadModel(getModel))) || []);
 
     }, [
         loadModel
@@ -136,7 +136,7 @@ export default (getComponent, store, getModels, getReducers) => props => {
             loadReducer(nameSpace, getReducer)
         )) || [];
 
-        setReducers(nextReducers.reduce((rdcs, [nameSpace, reducer]) => ({
+        await setReducers(nextReducers.reduce((rdcs, [nameSpace, reducer]) => ({
             ...rdcs,
             [nameSpace]: reducer
         }), {}));
@@ -156,7 +156,7 @@ export default (getComponent, store, getModels, getReducers) => props => {
         }
 
         const ComponentModule = await getComponent();
-        setComponent(ComponentModule?.default || ComponentModule);
+        await setComponent(ComponentModule?.default || ComponentModule);
 
     }, []);
 
