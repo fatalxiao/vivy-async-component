@@ -34,14 +34,16 @@ module.exports = {
                         useBuiltIns: 'usage',
                         corejs: 3
                     }
-                ]
+                ],
+                '@babel/preset-react'
             ],
             plugins
         },
 
         'test': {
             'presets': [
-                '@babel/preset-env'
+                '@babel/preset-env',
+                '@babel/preset-react'
             ],
             plugins
         }
