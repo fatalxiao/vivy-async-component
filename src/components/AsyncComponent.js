@@ -22,7 +22,7 @@ export default (getComponent, store, getModels, getReducers) => props => {
     /**
      * Component from getComponent
      */
-    const [component, setComponent] = useState(null);
+    const [Component, setComponent] = useState(null);
 
     /**
      * models from getModels
@@ -35,7 +35,7 @@ export default (getComponent, store, getModels, getReducers) => props => {
     const [reducers, setReducers] = useState({});
 
     /**
-     * Dispatch starting load component action
+     * Dispatch starting load Component action
      * @type {(function(): void)|*}
      */
     const loadStartCallback = useCallback(() => {
@@ -49,7 +49,7 @@ export default (getComponent, store, getModels, getReducers) => props => {
     }, []);
 
     /**
-     * Dispatch loading component complete action
+     * Dispatch loading Component complete action
      * @type {(function(): void)|*}
      */
     const loadCompleteCallback = useCallback(() => {
@@ -59,7 +59,7 @@ export default (getComponent, store, getModels, getReducers) => props => {
             store,
             getModels,
             getReducers,
-            component,
+            Component,
             models,
             reducers
         });
@@ -142,7 +142,7 @@ export default (getComponent, store, getModels, getReducers) => props => {
     ]);
 
     /**
-     * Load component from getComponent
+     * Load Component from getComponent
      * @type {(function(): Promise<void>)|*}
      */
     const loadComponent = useCallback(async () => {
@@ -157,12 +157,12 @@ export default (getComponent, store, getModels, getReducers) => props => {
     }, []);
 
     /**
-     * Init getting models and component
+     * Init getting models and Component
      * @type {(function(): Promise<void>)|*}
      */
     const init = useCallback(async () => {
 
-        if (component) {
+        if (Component) {
             return;
         }
 
@@ -175,7 +175,7 @@ export default (getComponent, store, getModels, getReducers) => props => {
         loadCompleteCallback();
 
     }, [
-        component,
+        Component,
         loadStartCallback, loadCompleteCallback, loadModels, loadReducers, loadComponent
     ]);
 
@@ -195,8 +195,8 @@ export default (getComponent, store, getModels, getReducers) => props => {
         init
     ]);
 
-    return component ?
-        <component {...props}/>
+    return Component ?
+        <Component {...props}/>
         :
         null;
 
