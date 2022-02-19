@@ -169,18 +169,8 @@ export default (getComponent, store, getModels, getReducers) => props => {
         loadStartCallback, loadModels, loadReducers, loadComponent, loadCompleteCallback
     ]);
 
-    useEffect(() => {
-
-        /**
-         * Call init
-         * @returns {Promise<void>}
-         */
-        async function callInit() {
-            await init();
-        }
-
-        callInit();
-
+    useEffect(async () => {
+        await init();
     }, [
         init
     ]);
