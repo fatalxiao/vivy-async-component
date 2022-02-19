@@ -25,7 +25,7 @@ let timeoutId = null;
  * @returns {function({getState: *}): function(*): function(*=): (*|undefined)}
  */
 export default function (asyncComponentLoadingModelNameSpace) {
-    return ({getState}) => next => action => {
+    return ({dispatch, getState}) => next => action => {
 
         // Whether async component is loading
         const loading = getState()?.[asyncComponentLoadingModelNameSpace];
@@ -37,7 +37,7 @@ export default function (asyncComponentLoadingModelNameSpace) {
             timeoutId && clearTimeout(timeoutId);
 
             // Dispatch start loading component action
-            !loading && next({
+            !loading && dispatch({
                 type: `${asyncComponentLoadingModelNameSpace}/start`
             });
 
@@ -56,7 +56,7 @@ export default function (asyncComponentLoadingModelNameSpace) {
                 timeoutId && clearTimeout(timeoutId);
 
                 // Dispatch loading component complete action
-                next({
+                dispatch({
                     type: `${asyncComponentLoadingModelNameSpace}/complete`
                 });
 
