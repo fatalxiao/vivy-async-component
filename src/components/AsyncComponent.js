@@ -156,7 +156,7 @@ export default (getComponent, store, getModels, getReducers) => props => {
         }
 
         const ComponentModule = await getComponent();
-        setComponent(ComponentModule.default || ComponentModule);
+        setComponent(ComponentModule?.default || ComponentModule);
 
     }, []);
 
