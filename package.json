@@ -12,6 +12,7 @@
         "index.d.ts"
     ],
     "scripts": {
+        "test": "cross-env NODE_ENV=test jest test/**.test.js",
         "build": "gulp",
         "do-publish": "npm run build && npm publish"
     },
