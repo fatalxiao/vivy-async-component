@@ -25,16 +25,6 @@ export default (getComponent, store, getModels, getReducers) => props => {
     const [Component, setComponent] = useState(null);
 
     /**
-     * models from getModels
-     */
-    const [models, setModels] = useState([]);
-
-    /**
-     * reducers from getReducers
-     */
-    const [reducers, setReducers] = useState({});
-
-    /**
      * Dispatch starting load Component action
      * @type {(function(): void)|*}
      */
@@ -52,20 +42,18 @@ export default (getComponent, store, getModels, getReducers) => props => {
      * Dispatch loading Component complete action
      * @type {(function(): void)|*}
      */
-    const loadCompleteCallback = useCallback(NextComponent => {
+    const loadCompleteCallback = useCallback((models, reducers, Component) => {
         store?.dispatch({
             type: ASYNC_COMPONENT_LOADING_COMPLETE,
             getComponent,
             store,
             getModels,
             getReducers,
-            Component: NextComponent,
+            Component,
             models,
             reducers
         });
-    }, [
-        models, reducers
-    ]);
+    }, []);
 
     /**
      * Load model from getModel
@@ -95,7 +83,7 @@ export default (getComponent, store, getModels, getReducers) => props => {
             return;
         }
 
-        setModels(await Promise.all(getModels.map(getModel => loadModel(getModel))) || []);
+        return await Promise.all(getModels.map(getModel => loadModel(getModel))) || [];
 
     }, [
         loadModel
@@ -132,14 +120,14 @@ export default (getComponent, store, getModels, getReducers) => props => {
             return;
         }
 
-        const nextReducers = await Promise.all(Object.entries(getReducers).map(([nameSpace, getReducer]) =>
-            loadReducer(nameSpace, getReducer)
-        )) || [];
-
-        setReducers(nextReducers.reduce((rdcs, [nameSpace, reducer]) => ({
-            ...rdcs,
+        return (
+            await Promise.all(Object.entries(getReducers).map(([nameSpace, getReducer]) =>
+                loadReducer(nameSpace, getReducer)
+            )) || []
+        ).reduce((rs, [nameSpace, reducer]) => ({
+            ...rs,
             [nameSpace]: reducer
-        }), {}));
+        }), {});
 
     }, [
         loadReducer
@@ -174,11 +162,7 @@ export default (getComponent, store, getModels, getReducers) => props => {
         }
 
         loadStartCallback();
-
-        await loadModels();
-        await loadReducers();
-
-        loadCompleteCallback(await loadComponent());
+        loadCompleteCallback(await loadModels(), await loadReducers(), await loadComponent());
 
     }, [
         Component,
