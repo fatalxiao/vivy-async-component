@@ -57,12 +57,12 @@ export default (getComponent, store, getModels, getReducers) => props => {
 
     /**
      * Load model from getModel
-     * @type {(function(*=): Promise<void>)|*}
+     * @type {(function(*): Promise<null|*>)|*}
      */
     const loadModel = useCallback(async getModel => {
 
         if (!getModel || typeof getModel !== 'function') {
-            return;
+            return null;
         }
 
         const modelModule = await getModel();
@@ -75,12 +75,12 @@ export default (getComponent, store, getModels, getReducers) => props => {
 
     /**
      * Load models from getModels
-     * @type {(function(): Promise<void>)|*}
+     * @type {(function(): Promise<[]|*>)|*}
      */
     const loadModels = useCallback(async () => {
 
         if (!getModels || getModels?.length < 1) {
-            return;
+            return [];
         }
 
         return await Promise.all(getModels.map(getModel => loadModel(getModel))) || [];
@@ -91,12 +91,12 @@ export default (getComponent, store, getModels, getReducers) => props => {
 
     /**
      * Load reducer from getReducer
-     * @type {(function(*=, *=): Promise<void>)|*}
+     * @type {(function(*, *): Promise<[]|[any,(*)]>)|*}
      */
     const loadReducer = useCallback(async (nameSpace, getReducer) => {
 
         if (!nameSpace || !getReducer || typeof getReducer !== 'function') {
-            return;
+            return [];
         }
 
         const reducerModule = await getReducer();
@@ -112,22 +112,22 @@ export default (getComponent, store, getModels, getReducers) => props => {
 
     /**
      * Load reducers from getReducers
-     * @type {(function(): Promise<void>)|*}
+     * @type {(function(): Promise<{}|*>)|*}
      */
     const loadReducers = useCallback(async () => {
 
         if (!getReducers) {
-            return;
+            return {};
         }
 
         return (
             await Promise.all(Object.entries(getReducers).map(([nameSpace, getReducer]) =>
                 loadReducer(nameSpace, getReducer)
             )) || []
-        ).reduce((rs, [nameSpace, reducer]) => ({
+        ).reduce((rs, [nameSpace, reducer]) => nameSpace && reducer ? {
             ...rs,
             [nameSpace]: reducer
-        }), {});
+        } : rs, {});
 
     }, [
         loadReducer
@@ -140,7 +140,7 @@ export default (getComponent, store, getModels, getReducers) => props => {
     const loadComponent = useCallback(async () => {
 
         if (!getComponent || typeof getComponent !== 'function') {
-            return;
+            return null;
         }
 
         const ComponentModule = await getComponent();
