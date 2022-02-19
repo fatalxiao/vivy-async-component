@@ -52,19 +52,19 @@ export default (getComponent, store, getModels, getReducers) => props => {
      * Dispatch loading Component complete action
      * @type {(function(): void)|*}
      */
-    const loadCompleteCallback = useCallback(() => {
+    const loadCompleteCallback = useCallback(NextComponent => {
         store?.dispatch({
             type: ASYNC_COMPONENT_LOADING_COMPLETE,
             getComponent,
             store,
             getModels,
             getReducers,
-            Component,
+            Component: NextComponent,
             models,
             reducers
         });
     }, [
-        Component, models, reducers
+        models, reducers
     ]);
 
     /**
@@ -177,9 +177,8 @@ export default (getComponent, store, getModels, getReducers) => props => {
 
         await loadModels();
         await loadReducers();
-        await loadComponent();
 
-        loadCompleteCallback();
+        loadCompleteCallback(await loadComponent());
 
     }, [
         Component,
