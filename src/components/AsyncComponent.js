@@ -77,8 +77,9 @@ export default (getComponent, store, getModels, getReducers) => props => {
             return;
         }
 
-        const model = await getModel();
-        store?.registerModel(model?.default || model);
+        const modelModule = await getModel();
+        const model = modelModule?.default || modelModule;
+        store?.registerModel(model);
 
         return model;
 
@@ -110,8 +111,9 @@ export default (getComponent, store, getModels, getReducers) => props => {
             return;
         }
 
-        const reducer = await getReducer();
-        store?.registerReducer(nameSpace, reducer?.default || reducer);
+        const reducerModule = await getReducer();
+        const reducer = reducerModule?.default || reducerModule;
+        store?.registerReducer(nameSpace, reducer);
 
         return [
             nameSpace,
@@ -134,8 +136,8 @@ export default (getComponent, store, getModels, getReducers) => props => {
             loadReducer(nameSpace, getReducer)
         )) || [];
 
-        setReducers(nextReducers.reduce((reducers, [nameSpace, reducer]) => ({
-            ...reducers,
+        setReducers(nextReducers.reduce((rdcs, [nameSpace, reducer]) => ({
+            ...rdcs,
             [nameSpace]: reducer
         }), {}));
 
@@ -153,8 +155,8 @@ export default (getComponent, store, getModels, getReducers) => props => {
             return;
         }
 
-        const cpt = await getComponent();
-        setComponent(cpt.default || cpt);
+        const ComponentModule = await getComponent();
+        setComponent(ComponentModule.default || ComponentModule);
 
     }, []);
 
