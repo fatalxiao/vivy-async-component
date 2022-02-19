@@ -38,6 +38,7 @@ export default function (asyncComponentLoadingModelNameSpace) {
 
             // Dispatch start loading component action
             !loading && dispatch({
+                ...action,
                 type: `${asyncComponentLoadingModelNameSpace}/start`
             });
 
@@ -57,6 +58,7 @@ export default function (asyncComponentLoadingModelNameSpace) {
 
                 // Dispatch loading component complete action
                 dispatch({
+                    ...action,
                     type: `${asyncComponentLoadingModelNameSpace}/complete`
                 });
 
