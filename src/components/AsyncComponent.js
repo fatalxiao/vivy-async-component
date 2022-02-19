@@ -22,7 +22,17 @@ export default (getComponent, store, getModels, getReducers) => props => {
     /**
      * Component from getComponent
      */
-    const [Cpt, setCpt] = useState(null);
+    const [component, setComponent] = useState(null);
+
+    /**
+     * models from getModels
+     */
+    const [models, setModels] = useState([]);
+
+    /**
+     * reducers from getReducers
+     */
+    const [reducers, setReducers] = useState({});
 
     /**
      * Dispatch starting load component action
@@ -30,7 +40,11 @@ export default (getComponent, store, getModels, getReducers) => props => {
      */
     const loadStartCallback = useCallback(() => {
         store?.dispatch({
-            type: ASYNC_COMPONENT_LOADING_START
+            type: ASYNC_COMPONENT_LOADING_START,
+            getComponent,
+            store,
+            getModels,
+            getReducers
         });
     }, []);
 
@@ -40,7 +54,14 @@ export default (getComponent, store, getModels, getReducers) => props => {
      */
     const loadCompleteCallback = useCallback(() => {
         store?.dispatch({
-            type: ASYNC_COMPONENT_LOADING_COMPLETE
+            type: ASYNC_COMPONENT_LOADING_COMPLETE,
+            getComponent,
+            store,
+            getModels,
+            getReducers,
+            component,
+            models,
+            reducers
         });
     }, []);
 
@@ -57,6 +78,8 @@ export default (getComponent, store, getModels, getReducers) => props => {
         const model = await getModel();
         store?.registerModel(model?.default || model);
 
+        return model;
+
     }, []);
 
     /**
@@ -69,7 +92,7 @@ export default (getComponent, store, getModels, getReducers) => props => {
             return;
         }
 
-        await Promise.all(getModels.map(getModel => loadModel(getModel)));
+        setModels(await Promise.all(getModels.map(getModel => loadModel(getModel))) || []);
 
     }, [
         loadModel
@@ -88,6 +111,11 @@ export default (getComponent, store, getModels, getReducers) => props => {
         const reducer = await getReducer();
         store?.registerReducer(nameSpace, reducer?.default || reducer);
 
+        return [
+            nameSpace,
+            reducer
+        ];
+
     }, []);
 
     /**
@@ -100,11 +128,14 @@ export default (getComponent, store, getModels, getReducers) => props => {
             return;
         }
 
-        await Promise.all(
-            Object.entries(getReducers).map(([nameSpace, getReducer]) =>
-                loadReducer(nameSpace, getReducer)
-            )
-        );
+        const nextReducers = await Promise.all(Object.entries(getReducers).map(([nameSpace, getReducer]) =>
+            loadReducer(nameSpace, getReducer)
+        )) || [];
+
+        setReducers(nextReducers.reduce((reducers, [nameSpace, reducer]) => ({
+            ...reducers,
+            [nameSpace]: reducer
+        }), {}));
 
     }, [
         loadReducer
@@ -120,8 +151,8 @@ export default (getComponent, store, getModels, getReducers) => props => {
             return;
         }
 
-        const component = await getComponent();
-        setCpt(component.default || component);
+        const cpt = await getComponent();
+        setComponent(cpt.default || cpt);
 
     }, []);
 
@@ -131,7 +162,7 @@ export default (getComponent, store, getModels, getReducers) => props => {
      */
     const init = useCallback(async () => {
 
-        if (Cpt) {
+        if (component) {
             return;
         }
 
@@ -144,7 +175,7 @@ export default (getComponent, store, getModels, getReducers) => props => {
         loadCompleteCallback();
 
     }, [
-        Cpt,
+        component,
         loadStartCallback, loadCompleteCallback, loadModels, loadReducers, loadComponent
     ]);
 
@@ -164,8 +195,8 @@ export default (getComponent, store, getModels, getReducers) => props => {
         init
     ]);
 
-    return Cpt ?
-        <Cpt {...props}/>
+    return component ?
+        <component {...props}/>
         :
         null;
 
