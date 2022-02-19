@@ -19,7 +19,7 @@ export interface Hooks {
 
 }
 
-export interface VivyAsyncComponentPluginOption {
+export type VivyAsyncComponentPluginOption = Hooks & {
 
     /**
      * NameSpace of "asyncComponentLoading" Model
