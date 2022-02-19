@@ -64,10 +64,7 @@ export default function (asyncComponentLoadingModelNameSpace) {
 
         }
 
-        // Other actions
-        else {
-            return next(action);
-        }
+        return next(action);
 
     };
 }
