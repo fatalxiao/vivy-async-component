@@ -15,7 +15,7 @@ import VivyRouter, {ConnectedRouter} from 'vivy-router';
 import VivyAsyncComponent from 'vivy-async-component';
 
 // Create browser history
-const history = createBrowserHistory();
+const history = createBrowserHistory({});
 
 // Create vivy
 const vivy = Vivy();
@@ -27,9 +27,21 @@ vivy.use(VivyRouter({
 
 // Apply async component plugin
 vivy.use(VivyAsyncComponent({
+
     // Customized AsyncComponentLoading model nameSpace
     // default is "asyncComponentLoading"
-    // asyncComponentLoadingModelNameSpace: 'customizedAsyncComponentLoading'
+    // asyncComponentLoadingModelNameSpace: 'customizedAsyncComponentLoading',
+
+    // Load start callback
+    onLoadStart: () => {
+        console.log('Load Start');
+    },
+
+    // Load complete callback
+    onLoadComplete: () => {
+        console.log('Load Complete');
+    }
+
 }));
 
 // Create store after configuration
