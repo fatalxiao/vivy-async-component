@@ -33,13 +33,37 @@ vivy.use(VivyAsyncComponent({
     // asyncComponentLoadingModelNameSpace: 'customizedAsyncComponentLoading',
 
     // Load start callback
-    onLoadStart: () => {
+    onLoadStart: ({
+        getComponent,
+        store,
+        getModels,
+        getReducers
+    }) => {
         console.log('Load Start');
+        console.log('getComponent::', getComponent);
+        console.log('store::', store);
+        console.log('getModels::', getModels);
+        console.log('getReducers::', getReducers);
     },
 
     // Load complete callback
-    onLoadComplete: () => {
+    onLoadComplete: ({
+        getComponent,
+        store,
+        getModels,
+        getReducers,
+        Component,
+        models,
+        reducers
+    }) => {
         console.log('Load Complete');
+        console.log('getComponent::', getComponent);
+        console.log('store::', store);
+        console.log('getModels::', getModels);
+        console.log('getReducers::', getReducers);
+        console.log('Component::', Component);
+        console.log('models::', models);
+        console.log('reducers::', reducers);
     }
 
 }));
