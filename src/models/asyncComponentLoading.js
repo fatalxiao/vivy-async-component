@@ -18,16 +18,16 @@ export default function createAsyncComponentLoading(nameSpace, onLoadStart, onLo
             /**
              * Start loading async component
              */
-            start: () => {
-                onLoadStart?.();
+            start: (state, {type, ...restActionProps}) => {
+                onLoadStart?.(restActionProps);
                 return true;
             },
 
             /**
              * Load async component complete
              */
-            complete: () => {
-                onLoadComplete?.();
+            complete: (state, {type, ...restActionProps}) => {
+                onLoadComplete?.(restActionProps);
                 return false;
             }
 
