@@ -1,6 +1,9 @@
 {
     "upgrade": true,
     "reject": [
-        "react"
+        "connected-react-router",
+        "history",
+        "react",
+        "react-router"
     ]
 }
