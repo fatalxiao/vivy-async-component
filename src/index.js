@@ -28,14 +28,21 @@ export default function VivyAsyncComponent(options = {}) {
 
     const op = {...DEFAULT_OPTIONS, ...options};
 
-    const {asyncComponentLoadingModelNameSpace} = op;
+    const {
+        asyncComponentLoadingModelNameSpace,
+        onLoadStart, onLoadComplete
+    } = op;
 
     return {
         extraMiddlewares: [
             createAsyncComponentLoadingMiddleware(asyncComponentLoadingModelNameSpace)
         ],
         extraModels: [
-            createAsyncComponentLoading(asyncComponentLoadingModelNameSpace)
+            createAsyncComponentLoading(
+                asyncComponentLoadingModelNameSpace,
+                onLoadStart,
+                onLoadComplete
+            )
         ]
     };
 

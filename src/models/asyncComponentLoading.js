@@ -5,9 +5,11 @@
 /**
  * Create asyncComponentLoading model
  * @param nameSpace {string}
+ * @param onLoadStart {Function}
+ * @param onLoadComplete {Function}
  * @returns {Object}
  */
-export default function createAsyncComponentLoading(nameSpace) {
+export default function createAsyncComponentLoading(nameSpace, onLoadStart, onLoadComplete) {
     return {
         nameSpace: nameSpace || 'asyncComponentLoading',
         state: false,
@@ -17,6 +19,7 @@ export default function createAsyncComponentLoading(nameSpace) {
              * Start loading async component
              */
             start: () => {
+                onLoadStart?.();
                 return true;
             },
 
@@ -24,6 +27,7 @@ export default function createAsyncComponentLoading(nameSpace) {
              * Load async component complete
              */
             complete: () => {
+                onLoadComplete?.();
                 return false;
             }
 

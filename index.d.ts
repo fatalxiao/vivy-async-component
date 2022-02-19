@@ -5,6 +5,20 @@ import * as AsyncComponent from './dist/components/AsyncComponent';
  */
 export {AsyncComponent};
 
+export interface Hooks {
+
+    /**
+     * Load component start callback
+     */
+    onLoadStart?: () => void,
+
+    /**
+     * Load component complete callback
+     */
+    onLoadComplete?: () => void
+
+}
+
 export interface VivyAsyncComponentPluginOption {
 
     /**
