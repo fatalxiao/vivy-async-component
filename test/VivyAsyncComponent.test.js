@@ -28,7 +28,7 @@ test('Use Vivy Async Component by memory history', () => {
 
 });
 
-test('Use AsyncComponent', () => {
+test('Use AsyncComponent loading component', () => {
 
     const history = createMemoryHistory();
     const vivy = Vivy();
