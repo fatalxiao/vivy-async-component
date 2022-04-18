@@ -171,6 +171,10 @@ export default (getComponent, store, getModels, getReducers) => props => {
 
     useEffect(() => {
 
+        /**
+         * Call init
+         * @returns {Promise<void>}
+         */
         async function runInit() {
             await init();
         }
