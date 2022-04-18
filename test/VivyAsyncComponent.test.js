@@ -1,6 +1,5 @@
 'use strict';
 
-import React from 'react';
 import Vivy from 'vivy';
 import VivyRouter from 'vivy-router';
 import VivyAsyncComponent, {AsyncComponent} from '../src';
