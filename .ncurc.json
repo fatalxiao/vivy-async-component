@@ -3,7 +3,6 @@
     "reject": [
         "connected-react-router",
         "history",
-        "react",
         "react-router"
     ]
 }
