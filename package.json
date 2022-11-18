@@ -59,11 +59,11 @@
         "@babel/runtime": "^7.20.1",
         "babel-core": "^7.0.0-bridge.0",
         "babel-jest": "^29.3.1",
-        "core-js": "^3.26.0",
+        "core-js": "^3.26.1",
         "cross-env": "^7.0.3",
         "delete": "^1.1.0",
         "eslint": "^8.27.0",
-        "eslint-plugin-jest": "^27.1.4",
+        "eslint-plugin-jest": "^27.1.5",
         "eslint-plugin-react": "^7.31.10",
         "eslint-plugin-react-hooks": "^4.6.0",
         "gulp": "^4.0.2",
@@ -74,7 +74,7 @@
         "react-dom": "^18.2.0",
         "react-redux": "^8.0.5",
         "react-router": "^5.2.1",
-        "vivy": "^2.1.1",
-        "vivy-router": "^2.0.2"
+        "vivy": "^2.1.2",
+        "vivy-router": "^2.0.3"
     }
 }
