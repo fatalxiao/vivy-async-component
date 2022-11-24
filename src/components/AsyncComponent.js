@@ -28,32 +28,28 @@ export default (getComponent, store, getModels, getReducers) => props => {
      * Dispatch starting load Component action
      * @type {(function(): void)|*}
      */
-    const loadStartCallback = useCallback(() => {
-        store?.dispatch({
-            type: ASYNC_COMPONENT_LOADING_START,
-            getComponent,
-            store,
-            getModels,
-            getReducers
-        });
-    }, []);
+    const loadStartCallback = useCallback(() => store?.dispatch({
+        type: ASYNC_COMPONENT_LOADING_START,
+        getComponent,
+        store,
+        getModels,
+        getReducers
+    }), []);
 
     /**
      * Dispatch loading Component complete action
      * @type {(function(): void)|*}
      */
-    const loadCompleteCallback = useCallback((models, reducers, Component) => {
-        store?.dispatch({
-            type: ASYNC_COMPONENT_LOADING_COMPLETE,
-            getComponent,
-            store,
-            getModels,
-            getReducers,
-            Component,
-            models,
-            reducers
-        });
-    }, []);
+    const loadCompleteCallback = useCallback((models, reducers, Component) => store?.dispatch({
+        type: ASYNC_COMPONENT_LOADING_COMPLETE,
+        getComponent,
+        store,
+        getModels,
+        getReducers,
+        Component,
+        models,
+        reducers
+    }), []);
 
     /**
      * Load model from getModel
@@ -143,11 +139,18 @@ export default (getComponent, store, getModels, getReducers) => props => {
             return null;
         }
 
-        const ComponentModule = await getComponent();
-        const NextComponent = ComponentModule?.default || ComponentModule;
-        setComponent(NextComponent);
+        try {
 
-        return NextComponent;
+            const ComponentModule = await getComponent();
+            const NextComponent = ComponentModule?.default || ComponentModule;
+            setComponent(NextComponent);
+
+            return NextComponent;
+
+        } catch (e) {
+            console.log('loadComponent error::', e);
+            return null;
+        }
 
     }, []);
 
