@@ -139,18 +139,11 @@ export default (getComponent, store, getModels, getReducers) => props => {
             return null;
         }
 
-        try {
+        const ComponentModule = await getComponent();
+        const NextComponent = ComponentModule?.default || ComponentModule;
+        setComponent(NextComponent);
 
-            const ComponentModule = await getComponent();
-            const NextComponent = ComponentModule?.default || ComponentModule;
-            setComponent(NextComponent);
-
-            return NextComponent;
-
-        } catch (e) {
-            console.log('loadComponent error::', e);
-            return null;
-        }
+        return NextComponent;
 
     }, []);
 
