@@ -78,7 +78,7 @@ export default (getComponent, store, getModels, getReducers) => props => {
         const modelModule = await getModel();
         const model = modelModule?.default || modelModule;
 
-        if (!overwriteSameNameSpaceModel && store.asyncReducers.hasOwnProperty(nameSpace)) {
+        if (!overwriteSameNameSpaceModel && store.asyncReducers.hasOwnProperty(model?.nameSpace)) {
             return null;
         }
 
