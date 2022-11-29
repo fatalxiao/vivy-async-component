@@ -1,8 +1,11 @@
 /**
- * @file AsyncModuleComponent.js
+ * @file AsyncComponent.js
  */
 
-import React, {useState, useCallback, useEffect} from 'react';
+import React, {useState, useMemo, useCallback, useEffect} from 'react';
+
+// ReducerNameSpaces
+import {VIVY_OPTION_REDUCER_NAME_SPACE} from 'vivy';
 
 // Action Types
 import {
@@ -23,6 +26,17 @@ export default (getComponent, store, getModels, getReducers) => props => {
      * Component from getComponent
      */
     const [Component, setComponent] = useState(null);
+
+    /**
+     * get "overwriteSameNameSpaceModel" from vivy option
+     * @type {unknown}
+     */
+    const overwriteSameNameSpaceModel = useMemo(() => {
+        return store.getState()[VIVY_OPTION_REDUCER_NAME_SPACE]?.overwriteSameNameSpaceModel || false;
+    }, []);
+
+    console.log('store.getState()::', store.getState());
+    console.log('overwriteSameNameSpaceModel::', overwriteSameNameSpaceModel);
 
     /**
      * Dispatch starting load Component action
@@ -63,6 +77,11 @@ export default (getComponent, store, getModels, getReducers) => props => {
 
         const modelModule = await getModel();
         const model = modelModule?.default || modelModule;
+
+        if (!overwriteSameNameSpaceModel && store.asyncReducers.hasOwnProperty(nameSpace)) {
+            return null;
+        }
+
         store?.registerModel(model);
 
         return model;
@@ -91,7 +110,8 @@ export default (getComponent, store, getModels, getReducers) => props => {
      */
     const loadReducer = useCallback(async (nameSpace, getReducer) => {
 
-        if (!nameSpace || !getReducer || typeof getReducer !== 'function') {
+        if (!nameSpace || !getReducer || typeof getReducer !== 'function'
+            || (!overwriteSameNameSpaceModel && store.asyncReducers.hasOwnProperty(nameSpace))) {
             return [];
         }
 
@@ -116,11 +136,9 @@ export default (getComponent, store, getModels, getReducers) => props => {
             return {};
         }
 
-        return (
-            await Promise.all(Object.entries(getReducers).map(([nameSpace, getReducer]) =>
-                loadReducer(nameSpace, getReducer)
-            )) || []
-        ).reduce((rs, [nameSpace, reducer]) => nameSpace && reducer ? {
+        return (await Promise.all(Object.entries(getReducers).map(([nameSpace, getReducer]) =>
+            loadReducer(nameSpace, getReducer)
+        )) || []).reduce((rs, [nameSpace, reducer]) => nameSpace && reducer ? {
             ...rs,
             [nameSpace]: reducer
         } : rs, {});
@@ -181,9 +199,6 @@ export default (getComponent, store, getModels, getReducers) => props => {
         init
     ]);
 
-    return Component ?
-        <Component {...props}/>
-        :
-        null;
+    return Component && <Component {...props}/>;
 
 };
