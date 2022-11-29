@@ -35,9 +35,6 @@ export default (getComponent, store, getModels, getReducers) => props => {
         return store.getState()[VIVY_OPTION_REDUCER_NAME_SPACE]?.overwriteSameNameSpaceModel || false;
     }, []);
 
-    console.log('store.getState()::', store.getState());
-    console.log('overwriteSameNameSpaceModel::', overwriteSameNameSpaceModel);
-
     /**
      * Dispatch starting load Component action
      * @type {(function(): void)|*}
