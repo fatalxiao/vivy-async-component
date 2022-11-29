@@ -32,7 +32,8 @@
         "url": "https://github.com/fatalxiao/vivy-async-component/issues"
     },
     "dependencies": {
-        "react": ">=18.x"
+        "react": ">=18.x",
+        "vivy": ">=2.2.0"
     },
     "devDependencies": {
         "@babel/core": "^7.20.5",
@@ -74,7 +75,6 @@
         "react-dom": "^18.2.0",
         "react-redux": "^8.0.5",
         "react-router": "^5.2.1",
-        "vivy": "^2.2.0",
         "vivy-router": "^2.0.4"
     }
 }
