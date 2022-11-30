@@ -1,7 +1,7 @@
 {
     "name": "vivy-async-component",
     "author": "liangxiaojun",
-    "version": "2.1.0-alpha.2",
+    "version": "2.1.0-alpha.3",
     "description": "A Vivy plugin which loading async component and async Vivy model to easily split chunks by route.",
     "main": "./dist/index.js",
     "files": [
