@@ -9,7 +9,7 @@ import createAsyncComponentLoading from './models/asyncComponentLoading';
 import createAsyncComponentLoadingMiddleware from './middlewares/AsyncComponentLoadingMiddleware';
 
 // Components
-export AsyncComponent from './components/AsyncComponent';
+export * from './components/AsyncComponent';
 
 /**
  * Default Vivy async component options
