@@ -83,7 +83,9 @@ export default (getComponent, store, getModels, getReducers) => props => {
 
         return model;
 
-    }, []);
+    }, [
+        overwriteSameNameSpaceModel
+    ]);
 
     /**
      * Load models from getModels
@@ -121,7 +123,9 @@ export default (getComponent, store, getModels, getReducers) => props => {
             reducer
         ];
 
-    }, []);
+    }, [
+        overwriteSameNameSpaceModel
+    ]);
 
     /**
      * Load reducers from getReducers
