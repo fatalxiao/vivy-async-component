@@ -125,6 +125,7 @@ export default (getComponent, store, getModels, getReducers) => class AsyncCompo
 
         const ComponentModule = await getComponent();
         const NextComponent = ComponentModule?.default || ComponentModule;
+        console.log('ComponentModule::', ComponentModule);
         this.setState({
             Component: NextComponent
         });
