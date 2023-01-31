@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import {createRoot} from 'react-dom/client';
+import {render} from 'react-dom';
 import {createBrowserHistory} from 'history';
 import {renderRoutes} from 'react-router-config';
 import {Provider} from 'react-redux';
@@ -71,10 +71,11 @@ vivy.use(VivyAsyncComponent({
 // Create store after configuration
 const store = vivy.createStore();
 
-createRoot(document.getElementById('app-container')).render(
+render(
     <Provider store={store}>
         <ConnectedRouter history={history}>
             {renderRoutes(configureRoutes(store))}
         </ConnectedRouter>
-    </Provider>
+    </Provider>,
+    document.getElementById('app-container')
 );
