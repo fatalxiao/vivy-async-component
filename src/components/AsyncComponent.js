@@ -136,7 +136,7 @@ export default (getComponent, store, getModels, getReducers) => class AsyncCompo
 
     init = async () => {
 
-        if (Component) {
+        if (this.state.Component) {
             return;
         }
 
@@ -146,6 +146,7 @@ export default (getComponent, store, getModels, getReducers) => class AsyncCompo
     };
 
     render() {
+        const {Component} = this.state;
         return Component && <Component {...this.props}/> || null;
     }
 
