@@ -12,6 +12,14 @@ import {
     ASYNC_COMPONENT_LOADING_START, ASYNC_COMPONENT_LOADING_COMPLETE
 } from '../actionTypes/AsyncComponentLoadingActionType';
 
+/**
+ * Create Async Module Component
+ * @param getComponent {Function}
+ * @param store {Object}
+ * @param getModels {Function[]}
+ * @param getReducers {Function[]}
+ * @returns {{new(*): AsyncComponent, state: {Component: null}, contextType?: React.Context<any>, new<P, S>(props: Readonly<P>): AsyncComponent, new<P, S>(props: P, context?: any): AsyncComponent, new<P, S>(props: (Readonly<P> | P)): AsyncComponent, new<P, S>(props: P, context: any): AsyncComponent, prototype: AsyncComponent}}
+ */
 export default (getComponent, store, getModels, getReducers) => class AsyncComponent extends Component {
 
     constructor(props) {
@@ -24,14 +32,24 @@ export default (getComponent, store, getModels, getReducers) => class AsyncCompo
 
     }
 
+    /**
+     * Call init
+     */
     componentDidMount() {
         this.init();
     }
 
+    /**
+     * get "overwriteSameNameSpaceModel" from vivy option
+     * @returns {boolean}
+     */
     isOverwriteSameNameSpaceModel = () => {
         return store.getState()[VIVY_OPTION_REDUCER_NAME_SPACE]?.overwriteSameNameSpaceModel || false;
     };
 
+    /**
+     * Dispatch starting load Component action
+     */
     loadStartCallback = () => {
         store?.dispatch({
             type: ASYNC_COMPONENT_LOADING_START,
@@ -42,6 +60,12 @@ export default (getComponent, store, getModels, getReducers) => class AsyncCompo
         });
     };
 
+    /**
+     * Dispatch loading Component complete action
+     * @param models
+     * @param reducers
+     * @param Component
+     */
     loadCompleteCallback = (models, reducers, Component) => {
         store?.dispatch({
             type: ASYNC_COMPONENT_LOADING_COMPLETE,
@@ -55,6 +79,11 @@ export default (getComponent, store, getModels, getReducers) => class AsyncCompo
         });
     };
 
+    /**
+     * Load model from getModel
+     * @param getModel
+     * @returns {Promise<*|null>}
+     */
     loadModel = async getModel => {
 
         if (!getModel || typeof getModel !== 'function') {
@@ -74,6 +103,10 @@ export default (getComponent, store, getModels, getReducers) => class AsyncCompo
 
     };
 
+    /**
+     * Load models from getModels
+     * @returns {Promise<Awaited<*|null>[]|*[]>}
+     */
     loadModels = async () => {
 
         if (!getModels || getModels?.length < 1) {
@@ -84,6 +117,12 @@ export default (getComponent, store, getModels, getReducers) => class AsyncCompo
 
     };
 
+    /**
+     * Load reducer from getReducer
+     * @param nameSpace
+     * @param getReducer
+     * @returns {Promise<*[]>}
+     */
     loadReducer = async (nameSpace, getReducer) => {
 
         if (!nameSpace || !getReducer || typeof getReducer !== 'function'
@@ -102,6 +141,10 @@ export default (getComponent, store, getModels, getReducers) => class AsyncCompo
 
     };
 
+    /**
+     * Load reducers from getReducers
+     * @returns {Promise<{}|*|{[p: number]: *}|{}>}
+     */
     loadReducers = async () => {
 
         if (!getReducers) {
@@ -117,6 +160,10 @@ export default (getComponent, store, getModels, getReducers) => class AsyncCompo
 
     };
 
+    /**
+     * Load Component from getComponent
+     * @returns {Promise<*|null>}
+     */
     loadComponent = async () => {
 
         if (!getComponent || typeof getComponent !== 'function') {
@@ -125,7 +172,6 @@ export default (getComponent, store, getModels, getReducers) => class AsyncCompo
 
         const ComponentModule = await getComponent();
         const NextComponent = ComponentModule?.default || ComponentModule;
-        console.log('ComponentModule::', ComponentModule);
         this.setState({
             Component: NextComponent
         });
@@ -134,6 +180,10 @@ export default (getComponent, store, getModels, getReducers) => class AsyncCompo
 
     };
 
+    /**
+     * Init getting models and Component
+     * @returns {Promise<void>}
+     */
     init = async () => {
 
         if (this.state.Component) {
