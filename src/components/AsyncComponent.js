@@ -2,7 +2,7 @@
  * @file AsyncComponent.js
  */
 
-import React, {useState, useMemo, useCallback, useEffect} from 'react';
+import React, {Component} from 'react';
 
 // ReducerNameSpaces
 import {VIVY_OPTION_REDUCER_NAME_SPACE} from 'vivy';
@@ -12,61 +12,50 @@ import {
     ASYNC_COMPONENT_LOADING_START, ASYNC_COMPONENT_LOADING_COMPLETE
 } from '../actionTypes/AsyncComponentLoadingActionType';
 
-/**
- * Create Async Module Component
- * @param getComponent {Function}
- * @param store {Object}
- * @param getModels {Function[]}
- * @param getReducers {Function[]}
- * @returns {function(*): JSX.Element|null}
- */
-export default (getComponent, store, getModels, getReducers) => props => {
+export default (getComponent, store, getModels, getReducers) => class AssignHotelTable extends Component {
 
-    /**
-     * Component from getComponent
-     */
-    const [Component, setComponent] = useState(null);
+    constructor(props) {
 
-    /**
-     * get "overwriteSameNameSpaceModel" from vivy option
-     * @type {unknown}
-     */
-    const overwriteSameNameSpaceModel = useMemo(() => {
+        super(props);
+
+        this.state = {
+            Component: null
+        };
+
+    }
+
+    componentDidMount() {
+        this.init();
+    }
+
+    isOverwriteSameNameSpaceModel = () => {
         return store.getState()[VIVY_OPTION_REDUCER_NAME_SPACE]?.overwriteSameNameSpaceModel || false;
-    }, []);
+    };
 
-    /**
-     * Dispatch starting load Component action
-     * @type {(function(): void)|*}
-     */
-    const loadStartCallback = useCallback(() => store?.dispatch({
-        type: ASYNC_COMPONENT_LOADING_START,
-        getComponent,
-        store,
-        getModels,
-        getReducers
-    }), []);
+    loadStartCallback = () => {
+        store?.dispatch({
+            type: ASYNC_COMPONENT_LOADING_START,
+            getComponent,
+            store,
+            getModels,
+            getReducers
+        });
+    };
 
-    /**
-     * Dispatch loading Component complete action
-     * @type {(function(): void)|*}
-     */
-    const loadCompleteCallback = useCallback((models, reducers, Component) => store?.dispatch({
-        type: ASYNC_COMPONENT_LOADING_COMPLETE,
-        getComponent,
-        store,
-        getModels,
-        getReducers,
-        Component,
-        models,
-        reducers
-    }), []);
+    loadCompleteCallback = (models, reducers, Component) => {
+        store?.dispatch({
+            type: ASYNC_COMPONENT_LOADING_COMPLETE,
+            getComponent,
+            store,
+            getModels,
+            getReducers,
+            Component,
+            models,
+            reducers
+        });
+    };
 
-    /**
-     * Load model from getModel
-     * @type {(function(*): Promise<null|*>)|*}
-     */
-    const loadModel = useCallback(async getModel => {
+    loadModel = async getModel => {
 
         if (!getModel || typeof getModel !== 'function') {
             return null;
@@ -75,7 +64,7 @@ export default (getComponent, store, getModels, getReducers) => props => {
         const modelModule = await getModel();
         const model = modelModule?.default || modelModule;
 
-        if (!overwriteSameNameSpaceModel && store.asyncReducers.hasOwnProperty(model?.nameSpace)) {
+        if (!this.isOverwriteSameNameSpaceModel() && store.asyncReducers.hasOwnProperty(model?.nameSpace)) {
             return null;
         }
 
@@ -83,34 +72,22 @@ export default (getComponent, store, getModels, getReducers) => props => {
 
         return model;
 
-    }, [
-        overwriteSameNameSpaceModel
-    ]);
+    };
 
-    /**
-     * Load models from getModels
-     * @type {(function(): Promise<[]|*>)|*}
-     */
-    const loadModels = useCallback(async () => {
+    loadModels = async () => {
 
         if (!getModels || getModels?.length < 1) {
             return [];
         }
 
-        return await Promise.all(getModels.map(getModel => loadModel(getModel))) || [];
+        return await Promise.all(getModels.map(getModel => this.loadModel(getModel))) || [];
 
-    }, [
-        loadModel
-    ]);
+    };
 
-    /**
-     * Load reducer from getReducer
-     * @type {(function(*, *): Promise<[]|[any,(*)]>)|*}
-     */
-    const loadReducer = useCallback(async (nameSpace, getReducer) => {
+    loadReducer = async (nameSpace, getReducer) => {
 
         if (!nameSpace || !getReducer || typeof getReducer !== 'function'
-            || (!overwriteSameNameSpaceModel && store.asyncReducers.hasOwnProperty(nameSpace))) {
+            || (!this.isOverwriteSameNameSpaceModel() && store.asyncReducers.hasOwnProperty(nameSpace))) {
             return [];
         }
 
@@ -123,36 +100,24 @@ export default (getComponent, store, getModels, getReducers) => props => {
             reducer
         ];
 
-    }, [
-        overwriteSameNameSpaceModel
-    ]);
+    };
 
-    /**
-     * Load reducers from getReducers
-     * @type {(function(): Promise<{}|*>)|*}
-     */
-    const loadReducers = useCallback(async () => {
+    loadReducers = async () => {
 
         if (!getReducers) {
             return {};
         }
 
         return (await Promise.all(Object.entries(getReducers).map(([nameSpace, getReducer]) =>
-            loadReducer(nameSpace, getReducer)
+            this.loadReducer(nameSpace, getReducer)
         )) || []).reduce((rs, [nameSpace, reducer]) => nameSpace && reducer ? {
             ...rs,
             [nameSpace]: reducer
         } : rs, {});
 
-    }, [
-        loadReducer
-    ]);
+    };
 
-    /**
-     * Load Component from getComponent
-     * @type {(function(): Promise<void>)|*}
-     */
-    const loadComponent = useCallback(async () => {
+    loadComponent = async () => {
 
         if (!getComponent || typeof getComponent !== 'function') {
             return null;
@@ -160,46 +125,27 @@ export default (getComponent, store, getModels, getReducers) => props => {
 
         const ComponentModule = await getComponent();
         const NextComponent = ComponentModule?.default || ComponentModule;
-        setComponent(NextComponent);
+        this.setState({
+            Component: NextComponent
+        });
 
         return NextComponent;
 
-    }, []);
+    };
 
-    /**
-     * Init getting models and Component
-     * @type {(function(): Promise<void>)|*}
-     */
-    const init = useCallback(async () => {
+    init = async () => {
 
         if (Component) {
             return;
         }
 
-        loadStartCallback();
-        loadCompleteCallback(await loadModels(), await loadReducers(), await loadComponent());
+        this.loadStartCallback();
+        this.loadCompleteCallback(await this.loadModels(), await this.loadReducers(), await this.loadComponent());
 
-    }, [
-        Component,
-        loadStartCallback, loadModels, loadReducers, loadComponent, loadCompleteCallback
-    ]);
+    };
 
-    useEffect(() => {
-
-        /**
-         * Call init
-         * @returns {Promise<void>}
-         */
-        async function runInit() {
-            await init();
-        }
-
-        runInit();
-
-    }, [
-        init
-    ]);
-
-    return Component && <Component {...props}/>;
+    render() {
+        return Component && <Component {...this.props}/>;
+    }
 
 };
