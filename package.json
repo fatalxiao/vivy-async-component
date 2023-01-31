@@ -32,7 +32,7 @@
         "url": "https://github.com/fatalxiao/vivy-async-component/issues"
     },
     "dependencies": {
-        "react": ">=18.x",
+        "react": ">=16.x",
         "vivy": "^2.2.5"
     },
     "devDependencies": {
