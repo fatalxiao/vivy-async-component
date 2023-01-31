@@ -12,7 +12,7 @@ import {
     ASYNC_COMPONENT_LOADING_START, ASYNC_COMPONENT_LOADING_COMPLETE
 } from '../actionTypes/AsyncComponentLoadingActionType';
 
-export default (getComponent, store, getModels, getReducers) => class AssignHotelTable extends Component {
+export default (getComponent, store, getModels, getReducers) => class AsyncComponent extends Component {
 
     constructor(props) {
 
@@ -145,7 +145,7 @@ export default (getComponent, store, getModels, getReducers) => class AssignHote
     };
 
     render() {
-        return Component && <Component {...this.props}/>;
+        return Component && <Component {...this.props}/> || null;
     }
 
 };
