@@ -4,7 +4,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {connect} from 'react-vivy';
 
 // Vendors
 import {renderRoutes} from 'react-router-config';
