@@ -1,7 +1,7 @@
 {
     "name": "vivy-async-component",
     "author": "liangxiaojun",
-    "version": "2.2.1",
+    "version": "2.2.2",
     "description": "A Vivy plugin which loading async component and async Vivy model to easily split chunks by route.",
     "main": "./dist/index.js",
     "files": [
@@ -33,7 +33,7 @@
     },
     "dependencies": {
         "react": ">=16.x",
-        "vivy": "^2.2.6"
+        "vivy": ">=2.x"
     },
     "devDependencies": {
         "@babel/core": "^7.21.0",
@@ -58,7 +58,7 @@
         "react": ">=16.x",
         "react-dom": ">=16.x",
         "react-router": "^5.2.1",
-        "react-vivy": "^1.0.0",
+        "react-vivy": "^1.1.0",
         "vivy-router": "^2.0.5"
     }
 }

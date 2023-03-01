@@ -1,9 +1,7 @@
 {
     "upgrade": true,
     "reject": [
-        "history",
         "react",
-        "react-dom",
-        "react-router"
+        "vivy"
     ]
 }
