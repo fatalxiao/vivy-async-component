@@ -4,7 +4,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-vivy';
+import {useModelState} from 'react-vivy';
 
 // Component
 import {NavLink} from 'react-router-dom';
@@ -13,58 +13,63 @@ import PageLoading from 'alcedo-ui/PageLoading';
 // Vendors
 import {renderRoutes} from 'react-router-config';
 
-// Styles
-import './Root.scss';
-
 const Root = ({
-    route,
-    menu, asyncComponentLoading
-}) => (
-    <div className="root">
+    route
+}) => {
 
-        <PageLoading visible={asyncComponentLoading}
-                     showStripes={false}/>
+    /**
+     * Get state from model using hook "useModelState".
+     */
+    const {menu} = useModelState('root');
 
-        <div className="menu">
-            <h2>Module Root</h2>
-            <h3>Menu:</h3>
-            <ul>
-                {
-                    menu?.map((item, index) =>
-                        <li key={index}>
-                            <NavLink to={item?.route}>
-                                {item?.name}
-                            </NavLink>
-                        </li>
-                    )
-                }
-            </ul>
+    /**
+     * Get async component loading from customized name space model
+     * ( default vivy-async-component model name space is "asyncComponentLoading" )
+     * customizedAsyncComponentLoading: state.customizedAsyncComponentLoading
+     */
+    const asyncComponentLoading = useModelState('asyncComponentLoading');
+
+    return (
+        <div style={{
+            display: 'flex',
+            boxSizing: 'border-box',
+            height: '100vh'
+        }}>
+
+            <div style={{
+                padding: 24,
+                background: '#f0f0f0'
+            }}>
+                <h2>Module Root</h2>
+                <h3>Menu:</h3>
+                <ul>
+                    {
+                        menu?.map((item, index) =>
+                            <li key={index}>
+                                <NavLink to={item?.route}>
+                                    {item?.name}
+                                </NavLink>
+                            </li>
+                        )
+                    }
+                </ul>
+                Loading: {asyncComponentLoading ? 'true' : 'false'}
+            </div>
+
+            <div style={{
+                flex: 1,
+                padding: 24
+            }}>
+                {renderRoutes(route.routes)}
+            </div>
+
         </div>
-
-        <div className="content">
-            {renderRoutes(route.routes)}
-        </div>
-
-    </div>
-);
-
-Root.propTypes = {
-
-    route: PropTypes.object,
-
-    menu: PropTypes.array,
-    asyncComponentLoading: PropTypes.bool
+    );
 
 };
 
-export default connect(state => ({
+Root.propTypes = {
+    route: PropTypes.object
+};
 
-    // Get menu config from root model
-    menu: state.root.menu,
-
-    // Get async component loading from customized name space model
-    // ( default vivy-async-component model name space is "asyncComponentLoading" )
-    // customizedAsyncComponentLoading: state.customizedAsyncComponentLoading
-    asyncComponentLoading: state.asyncComponentLoading
-
-}))(Root);
+export default Root;

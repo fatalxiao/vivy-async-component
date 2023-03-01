@@ -3,27 +3,22 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-vivy';
+import {useModelState} from 'react-vivy';
 
-// Vendors
-import {renderRoutes} from 'react-router-config';
+const B = () => {
 
-const B = ({
-    route, modelBState
-}) => (
-    <>
-        <h2>Module B</h2>
-        <div>{modelBState}</div>
-        <div>{renderRoutes(route.routes)}</div>
-    </>
-);
+    /**
+     * Get state from model using hook "useModelState".
+     */
+    const modelBState = useModelState('b');
 
-B.propTypes = {
-    route: PropTypes.object,
-    modelBState: PropTypes.string
+    return (
+        <>
+            <h2>Module B</h2>
+            <div>{modelBState}</div>
+        </>
+    );
+
 };
 
-export default connect(state => ({
-    modelBState: state.b
-}))(B);
+export default B;
