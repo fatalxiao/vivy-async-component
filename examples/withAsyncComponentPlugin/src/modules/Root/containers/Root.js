@@ -8,7 +8,6 @@ import {useModelState} from 'react-vivy';
 
 // Component
 import {NavLink} from 'react-router-dom';
-import PageLoading from 'alcedo-ui/PageLoading';
 
 // Vendors
 import {renderRoutes} from 'react-router-config';
