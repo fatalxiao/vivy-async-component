@@ -11,7 +11,7 @@ import {
  * Timeout duration
  * @type {number}
  */
-const DURATION = 1000;
+const DURATION = 250;
 
 /**
  * Component loading complete timeout id
