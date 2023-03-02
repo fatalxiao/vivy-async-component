@@ -5,6 +5,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {useModelState} from 'react-vivy';
+import {useAsyncComponentLoading} from 'vivy-async-component';
 
 // Component
 import {NavLink} from 'react-router-dom';
@@ -22,11 +23,9 @@ const Root = ({
     const {menu} = useModelState('root');
 
     /**
-     * Get async component loading from customized name space model
-     * ( default vivy-async-component model name space is "asyncComponentLoading" )
-     * customizedAsyncComponentLoading: state.customizedAsyncComponentLoading
+     * Get asyncComponentLoading from i18n model using hook "useAsyncComponentLoading".
      */
-    const asyncComponentLoading = useModelState('asyncComponentLoading');
+    const asyncComponentLoading = useAsyncComponentLoading();
 
     return (
         <div style={{
