@@ -12,7 +12,7 @@ import createAsyncComponentLoadingMiddleware from './middlewares/AsyncComponentL
 export AsyncComponent from './components/AsyncComponent';
 
 // Hooks
-import {useModel} from 'react-vivy';
+import {useModel, useModelState} from 'react-vivy';
 
 /**
  * Default Vivy async component options
@@ -30,6 +30,14 @@ let optionAsyncComponentLoadingModelNameSpace;
  */
 export function useAsyncComponent() {
     return useModel(optionAsyncComponentLoadingModelNameSpace);
+}
+
+/**
+ * A hook to access the state from vivy async component model.
+ * @returns {boolean}
+ */
+export function useAsyncComponentLoading() {
+    return useModelState(optionAsyncComponentLoadingModelNameSpace);
 }
 
 /**

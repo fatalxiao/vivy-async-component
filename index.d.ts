@@ -53,6 +53,11 @@ export interface VivyAsyncComponentModelActions {
 export function useAsyncComponent(): [asyncComponentLoading, VivyAsyncComponentModelActions];
 
 /**
+ * A hook to access the state from vivy async component model.
+ */
+export function useAsyncComponentLoading(): asyncComponentLoading;
+
+/**
  * Create Vivy async component plugin
  * @param options
  */
