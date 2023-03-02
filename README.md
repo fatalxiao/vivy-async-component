@@ -27,6 +27,8 @@ A [Vivy][vivy-url] plugin to load async component and async Vivy model to easily
     * [Basic usage](#basic-usage)
     * [Methods](#methods)
     * [Hooks](#hooks)
+        * [useAsyncComponent](#useAsyncComponent)
+        * [useAsyncComponentLoading](#useAsyncComponentLoading)
 
 ## Installation
 
@@ -158,7 +160,7 @@ const [asyncComponentLoading, {start, complete}] = useAsyncComponent();
 #### `useAsyncComponentLoading`
 
 ```js
-import {useAsyncComponent} from 'vivy-async-component';
+import {useAsyncComponentLoading} from 'vivy-async-component';
 
 const asyncComponentLoading = useAsyncComponentLoading();
 ```
