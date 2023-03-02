@@ -11,6 +11,9 @@ import createAsyncComponentLoadingMiddleware from './middlewares/AsyncComponentL
 // Components
 export AsyncComponent from './components/AsyncComponent';
 
+// Hooks
+import {useModel} from 'react-vivy';
+
 /**
  * Default Vivy async component options
  * @type {Object}
@@ -18,6 +21,16 @@ export AsyncComponent from './components/AsyncComponent';
 const DEFAULT_OPTIONS = {
     asyncComponentLoadingModelNameSpace: 'asyncComponentLoading'
 };
+
+let optionAsyncComponentLoadingModelNameSpace;
+
+/**
+ * A hook to access the state and reducers from vivy async component model.
+ * @returns {[]}
+ */
+export function useAsyncComponent() {
+    return useModel(optionAsyncComponentLoadingModelNameSpace);
+}
 
 /**
  * Create Vivy async component plugin
@@ -32,6 +45,8 @@ export default function VivyAsyncComponent(options = {}) {
         asyncComponentLoadingModelNameSpace,
         onLoadStart, onLoadComplete
     } = op;
+
+    optionAsyncComponentLoadingModelNameSpace = asyncComponentLoadingModelNameSpace;
 
     return {
         extraMiddlewares: [

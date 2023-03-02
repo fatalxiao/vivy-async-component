@@ -29,6 +29,30 @@ export type VivyAsyncComponentPluginOption = Hooks & {
 }
 
 /**
+ * Whether is it loading model or component.
+ */
+export type asyncComponentLoading = boolean;
+
+export interface VivyAsyncComponentModelActions {
+
+    /**
+     * Set model state "asyncComponentLoading" value to true.
+     */
+    start?: () => void,
+
+    /**
+     * Set model state "asyncComponentLoading" value to false.
+     */
+    complete?: () => void
+
+}
+
+/**
+ * A hook to access the state and reducers from vivy async component model.
+ */
+export function useAsyncComponent(): [asyncComponentLoading, VivyAsyncComponentModelActions];
+
+/**
  * Create Vivy async component plugin
  * @param options
  */
