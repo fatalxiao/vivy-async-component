@@ -3,10 +3,10 @@
  * @author Liangxiaojun
  */
 
-import {Component} from 'react';
+import {Component, ComponentClass, createElement} from 'react';
 
 // ReducerNameSpaces
-import {VIVY_OPTION_REDUCER_NAME_SPACE} from 'vivy';
+import {VIVY_OPTION_REDUCER_NAME_SPACE, VivyModel, VivyStore} from 'vivy';
 
 // Action Types
 import {
@@ -20,14 +20,17 @@ import {
  * @param getModels
  * @param getReducers
  */
-export default (getComponent, store, getModels, getReducers) => class AsyncComponent extends Component {
+export default (
+    getComponent: () => Promise<any>, store: VivyStore,
+    getModels: (() => Promise<any>)[], getReducers: (() => Promise<any>)[]
+) => class AsyncComponent extends Component {
 
-    constructor(props) {
+    constructor(props: object) {
 
         super(props);
 
         this.state = {
-            Component: null
+            AsyncComponent: undefined
         };
 
     }
@@ -36,12 +39,12 @@ export default (getComponent, store, getModels, getReducers) => class AsyncCompo
      * Call init
      */
     componentDidMount() {
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
         this.init();
     }
 
     /**
      * get "overwriteSameNameSpaceModel" from vivy option
-     * @returns {boolean}
      */
     isOverwriteSameNameSpaceModel = () => {
         return store.getState()[VIVY_OPTION_REDUCER_NAME_SPACE]?.overwriteSameNameSpaceModel || false;
@@ -64,16 +67,18 @@ export default (getComponent, store, getModels, getReducers) => class AsyncCompo
      * Dispatch loading Component complete action
      * @param models
      * @param reducers
-     * @param Component
+     * @param AsyncComponent
      */
-    loadCompleteCallback = (models, reducers, Component) => {
+    loadCompleteCallback = (
+        models: VivyModel[], reducers: object, AsyncComponent: ComponentClass
+    ) => {
         store?.dispatch({
             type: ASYNC_COMPONENT_LOADING_COMPLETE,
             getComponent,
             store,
             getModels,
             getReducers,
-            Component,
+            Component: AsyncComponent,
             models,
             reducers
         });
@@ -82,9 +87,8 @@ export default (getComponent, store, getModels, getReducers) => class AsyncCompo
     /**
      * Load model from getModel
      * @param getModel
-     * @returns {Promise<*|null>}
      */
-    loadModel = async getModel => {
+    loadModel = async (getModel: () => Promise<any>) => {
 
         if (!getModel || typeof getModel !== 'function') {
             return null;
@@ -105,7 +109,6 @@ export default (getComponent, store, getModels, getReducers) => class AsyncCompo
 
     /**
      * Load models from getModels
-     * @returns {Promise<Awaited<*|null>[]|*[]>}
      */
     loadModels = async () => {
 
@@ -121,9 +124,8 @@ export default (getComponent, store, getModels, getReducers) => class AsyncCompo
      * Load reducer from getReducer
      * @param nameSpace
      * @param getReducer
-     * @returns {Promise<*[]>}
      */
-    loadReducer = async (nameSpace, getReducer) => {
+    loadReducer = async (nameSpace: string, getReducer: () => Promise<any>) => {
 
         if (!nameSpace || !getReducer || typeof getReducer !== 'function'
             || (!this.isOverwriteSameNameSpaceModel() && store.asyncReducers.hasOwnProperty(nameSpace))) {
@@ -143,7 +145,6 @@ export default (getComponent, store, getModels, getReducers) => class AsyncCompo
 
     /**
      * Load reducers from getReducers
-     * @returns {Promise<{}|*|{[p: number]: *}|{}>}
      */
     loadReducers = async () => {
 
@@ -162,7 +163,6 @@ export default (getComponent, store, getModels, getReducers) => class AsyncCompo
 
     /**
      * Load Component from getComponent
-     * @returns {Promise<*|null>}
      */
     loadComponent = async () => {
 
@@ -173,7 +173,7 @@ export default (getComponent, store, getModels, getReducers) => class AsyncCompo
         const ComponentModule = await getComponent();
         const NextComponent = ComponentModule?.default || ComponentModule;
         this.setState({
-            Component: NextComponent
+            AsyncComponent: NextComponent
         });
 
         return NextComponent;
@@ -182,11 +182,10 @@ export default (getComponent, store, getModels, getReducers) => class AsyncCompo
 
     /**
      * Init getting models and Component
-     * @returns {Promise<void>}
      */
     init = async () => {
 
-        if (this.state.Component) {
+        if (this.state.AsyncComponent) {
             return;
         }
 
@@ -196,8 +195,8 @@ export default (getComponent, store, getModels, getReducers) => class AsyncCompo
     };
 
     render() {
-        const {Component} = this.state;
-        return Component && <Component {...this.props}/> || null;
+        const {AsyncComponent} = this.state;
+        return AsyncComponent && createElement(AsyncComponent, this.props as any)
     }
 
 };
