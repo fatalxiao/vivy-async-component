@@ -28,7 +28,7 @@ export const AsyncComponent = (
     /**
      * AsyncComponent from getComponent
      */
-    const [Cmpnt, setCmpnt] = useState();
+    const [Cmpnt, setCmpnt] = useState(null);
 
     /**
      * get "overwriteSameNameSpaceModel" from vivy option
@@ -197,6 +197,6 @@ export const AsyncComponent = (
         init
     ]);
 
-    return Cmpnt && createElement(Cmpnt, props as any)
+    return Cmpnt && createElement(Cmpnt, props as any) || null
 
 };

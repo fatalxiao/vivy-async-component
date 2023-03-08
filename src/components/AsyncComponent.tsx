@@ -23,14 +23,14 @@ import {
 export const AsyncComponent = (
     getComponent: () => Promise<any>, store: VivyStore,
     getModels: (() => Promise<any>)[], getReducers: (() => Promise<any>)[]
-) => class AsyncComponentClass extends Component<object, { Cmpnt?: ComponentClass }> {
+) => class AsyncComponentClass extends Component<object, { Cmpnt?: ComponentClass | null }> {
 
     constructor(props: object) {
 
         super(props);
 
         this.state = {
-            Cmpnt: undefined
+            Cmpnt: null
         };
 
     }
@@ -196,7 +196,7 @@ export const AsyncComponent = (
 
     render() {
         const {Cmpnt} = this.state;
-        return Cmpnt && createElement(Cmpnt, this.props as any)
+        return Cmpnt && createElement(Cmpnt, this.props as any) || null
     }
 
 };
