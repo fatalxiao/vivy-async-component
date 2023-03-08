@@ -25,6 +25,8 @@ const DEFAULT_OPTIONS = {
 
 let optionAsyncComponentLoadingModelNameSpace: string;
 
+export * from './components/AsyncComponent';
+
 /**
  * A hook to access the state and reducers from vivy async component model.
  * @returns {[]}
@@ -71,5 +73,3 @@ export default function VivyAsyncComponent(options: VivyAsyncComponentPluginOpti
     };
 
 }
-
-export * from './components/AsyncComponent';
