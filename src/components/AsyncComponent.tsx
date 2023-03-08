@@ -1,5 +1,5 @@
 /**
- * @file AsyncComponent.ts
+ * @file AsyncComponent.tsx
  * @author Liangxiaojun
  */
 
@@ -20,17 +20,17 @@ import {
  * @param getModels
  * @param getReducers
  */
-export default (
+export const AsyncComponent = (
     getComponent: () => Promise<any>, store: VivyStore,
     getModels: (() => Promise<any>)[], getReducers: (() => Promise<any>)[]
-) => class AsyncComponent extends Component {
+) => class AsyncComponentClass extends Component<object, { Cmpnt?: ComponentClass }> {
 
     constructor(props: object) {
 
         super(props);
 
         this.state = {
-            AsyncComponent: undefined
+            Cmpnt: undefined
         };
 
     }
@@ -67,10 +67,10 @@ export default (
      * Dispatch loading Component complete action
      * @param models
      * @param reducers
-     * @param AsyncComponent
+     * @param Cmpnt
      */
     loadCompleteCallback = (
-        models: VivyModel[], reducers: object, AsyncComponent: ComponentClass
+        models: VivyModel[], reducers: object, Cmpnt: ComponentClass
     ) => {
         store?.dispatch({
             type: ASYNC_COMPONENT_LOADING_COMPLETE,
@@ -78,7 +78,7 @@ export default (
             store,
             getModels,
             getReducers,
-            Component: AsyncComponent,
+            Component: Cmpnt,
             models,
             reducers
         });
@@ -173,7 +173,7 @@ export default (
         const ComponentModule = await getComponent();
         const NextComponent = ComponentModule?.default || ComponentModule;
         this.setState({
-            AsyncComponent: NextComponent
+            Cmpnt: NextComponent
         });
 
         return NextComponent;
@@ -185,7 +185,7 @@ export default (
      */
     init = async () => {
 
-        if (this.state.AsyncComponent) {
+        if (this.state.Cmpnt) {
             return;
         }
 
@@ -195,8 +195,8 @@ export default (
     };
 
     render() {
-        const {AsyncComponent} = this.state;
-        return AsyncComponent && createElement(AsyncComponent, this.props as any)
+        const {Cmpnt} = this.state;
+        return Cmpnt && createElement(Cmpnt, this.props as any)
     }
 
 };

@@ -26,7 +26,7 @@ const DEFAULT_OPTIONS = {
 let optionAsyncComponentLoadingModelNameSpace: string;
 
 export * from './types';
-export * as AsyncComponent from './components/AsyncComponent';
+export {AsyncComponent} from './components/AsyncComponent';
 
 /**
  * A hook to access the state and reducers from vivy async component model.

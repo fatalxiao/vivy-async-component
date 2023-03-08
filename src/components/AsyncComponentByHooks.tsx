@@ -1,5 +1,5 @@
 /**
- * @file AsyncComponent.ts
+ * @file AsyncComponentByHooks.tsx
  * @author Liangxiaojun
  */
 
@@ -20,7 +20,7 @@ import {
  * @param getModels
  * @param getReducers
  */
-export default (
+export const AsyncComponent = (
     getComponent: () => Promise<any>, store: VivyStore,
     getModels: (() => Promise<any>)[], getReducers: (() => Promise<any>)[]
 ) => (props: object) => {
@@ -28,7 +28,7 @@ export default (
     /**
      * AsyncComponent from getComponent
      */
-    const [AsyncComponent, setAsyncComponent] = useState();
+    const [Cmpnt, setCmpnt] = useState();
 
     /**
      * get "overwriteSameNameSpaceModel" from vivy option
@@ -52,14 +52,14 @@ export default (
      * Dispatch loading Component complete action
      */
     const loadCompleteCallback = useCallback((
-        models: VivyModel[], reducers: object, AsyncComponent: ComponentClass
+        models: VivyModel[], reducers: object, Cmpnt: ComponentClass
     ) => store?.dispatch({
         type: ASYNC_COMPONENT_LOADING_COMPLETE,
         getComponent,
         store,
         getModels,
         getReducers,
-        Component: AsyncComponent,
+        Component: Cmpnt,
         models,
         reducers
     }), []);
@@ -157,7 +157,7 @@ export default (
 
         const ComponentModule = await getComponent();
         const NextComponent = ComponentModule?.default || ComponentModule;
-        setAsyncComponent(NextComponent);
+        setCmpnt(NextComponent);
 
         return NextComponent;
 
@@ -168,7 +168,7 @@ export default (
      */
     const init = useCallback(async () => {
 
-        if (AsyncComponent) {
+        if (Cmpnt) {
             return;
         }
 
@@ -176,7 +176,7 @@ export default (
         loadCompleteCallback(await loadModels(), await loadReducers(), await loadComponent());
 
     }, [
-        AsyncComponent,
+        Cmpnt,
         loadStartCallback, loadModels, loadReducers, loadComponent, loadCompleteCallback
     ]);
 
@@ -197,6 +197,6 @@ export default (
         init
     ]);
 
-    return AsyncComponent && createElement(AsyncComponent, props as any)
+    return Cmpnt && createElement(Cmpnt, props as any)
 
 };
