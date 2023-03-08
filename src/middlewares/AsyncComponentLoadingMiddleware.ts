@@ -1,11 +1,15 @@
 /**
- * @file AsyncComponentLoadingMiddleware.js
+ * @file AsyncComponentLoadingMiddleware.ts
+ * @author Liangxiaojun
  */
 
 // Action Types
 import {
     ASYNC_COMPONENT_LOADING_START, ASYNC_COMPONENT_LOADING_COMPLETE
 } from '../actionTypes/AsyncComponentLoadingActionType';
+
+// Types
+import {Middleware} from 'vivy';
 
 /**
  * Timeout duration
@@ -15,16 +19,14 @@ const DURATION = 250;
 
 /**
  * Component loading complete timeout id
- * @type {null}
  */
-let timeoutId = null;
+let timeoutId: number;
 
 /**
  * Create Async Component Loading Middleware
- * @param asyncComponentLoadingModelNameSpace {string}
- * @returns {function({getState: *}): function(*): function(*=): (*|undefined)}
+ * @param asyncComponentLoadingModelNameSpace
  */
-export default function (asyncComponentLoadingModelNameSpace) {
+export default function (asyncComponentLoadingModelNameSpace: string): Middleware {
     return ({dispatch, getState}) => next => action => {
 
         // Whether async component is loading
@@ -51,7 +53,7 @@ export default function (asyncComponentLoadingModelNameSpace) {
             timeoutId && clearTimeout(timeoutId);
 
             // Set timeout
-            timeoutId = setTimeout(() => {
+            timeoutId = window.setTimeout(() => {
 
                 // Clear time out
                 timeoutId && clearTimeout(timeoutId);

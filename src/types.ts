@@ -1,21 +1,23 @@
-import * as AsyncComponent from './dist/components/AsyncComponent';
-
 /**
- * AsyncComponent
+ * @file types.ts
+ * @author Liangxiaojun
  */
-export {AsyncComponent};
+
+export interface Hook {
+    (args: any): void
+}
 
 export interface Hooks {
 
     /**
      * Load component start callback
      */
-    onLoadStart?: () => void,
+    onLoadStart?: Hook,
 
     /**
      * Load component complete callback
      */
-    onLoadComplete?: () => void
+    onLoadComplete?: Hook
 
 }
 
@@ -47,18 +49,18 @@ export interface VivyAsyncComponentModelActions {
 
 }
 
-/**
- * A hook to access the state and reducers from vivy async component model.
- */
-export function useAsyncComponent(): [asyncComponentLoading, VivyAsyncComponentModelActions];
-
-/**
- * A hook to access the state from vivy async component model.
- */
-export function useAsyncComponentLoading(): asyncComponentLoading;
-
-/**
- * Create Vivy async component plugin
- * @param options
- */
-export default function VivyAsyncComponent(options?: VivyAsyncComponentPluginOption);
+// /**
+//  * A hook to access the state and reducers from vivy async component model.
+//  */
+// export function useAsyncComponent(): [asyncComponentLoading, VivyAsyncComponentModelActions];
+//
+// /**
+//  * A hook to access the state from vivy async component model.
+//  */
+// export function useAsyncComponentLoading(): asyncComponentLoading;
+//
+// /**
+//  * Create Vivy async component plugin
+//  * @param options
+//  */
+// export default function VivyAsyncComponent(options?: VivyAsyncComponentPluginOption);

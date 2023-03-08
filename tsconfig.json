@@ -1,0 +1,40 @@
+{
+    "compilerOptions": {
+        "outDir": "esm",
+        "allowJs": true,
+        "module": "esnext",
+        "target": "es5",
+        "lib": [
+            "es5",
+            "esnext",
+            "dom"
+        ],
+        "sourceMap": true,
+        "declaration": true,
+        "baseUrl": ".",
+        "jsx": "react-jsx",
+        "strictNullChecks": true,
+        "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true,
+        "moduleResolution": "node",
+        "forceConsistentCasingInFileNames": true,
+        "noImplicitReturns": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "noUnusedLocals": true,
+        "skipLibCheck": true,
+        "experimentalDecorators": true,
+        "strict": true,
+        "paths": {
+            "src/*": [
+                "./src/*"
+            ]
+        }
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "esm"
+    ]
+}

@@ -1,5 +1,6 @@
 /**
- * @file index.js
+ * @file index.ts
+ * @author Liangxiaojun
  */
 
 // Models
@@ -8,11 +9,11 @@ import createAsyncComponentLoading from './models/asyncComponentLoading';
 // Middlewares
 import createAsyncComponentLoadingMiddleware from './middlewares/AsyncComponentLoadingMiddleware';
 
-// Components
-export AsyncComponent from './components/AsyncComponent';
-
 // Hooks
 import {useModel, useModelState} from 'react-vivy';
+
+// Types
+import {VivyAsyncComponentPluginOption} from 'src/types';
 
 /**
  * Default Vivy async component options
@@ -22,7 +23,7 @@ const DEFAULT_OPTIONS = {
     asyncComponentLoadingModelNameSpace: 'asyncComponentLoading'
 };
 
-let optionAsyncComponentLoadingModelNameSpace;
+let optionAsyncComponentLoadingModelNameSpace: string;
 
 /**
  * A hook to access the state and reducers from vivy async component model.
@@ -45,7 +46,7 @@ export function useAsyncComponentLoading() {
  * @param options {Object}
  * @returns {Object}
  */
-export default function VivyAsyncComponent(options = {}) {
+export default function VivyAsyncComponent(options: VivyAsyncComponentPluginOption = {}) {
 
     const op = {...DEFAULT_OPTIONS, ...options};
 
@@ -70,3 +71,5 @@ export default function VivyAsyncComponent(options = {}) {
     };
 
 }
+
+export * from './components/AsyncComponent';

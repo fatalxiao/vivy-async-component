@@ -1,8 +1,9 @@
 /**
- * @file AsyncComponent.js
+ * @file AsyncComponent.ts
+ * @author Liangxiaojun
  */
 
-import React, {Component} from 'react';
+import {Component} from 'react';
 
 // ReducerNameSpaces
 import {VIVY_OPTION_REDUCER_NAME_SPACE} from 'vivy';
@@ -14,11 +15,10 @@ import {
 
 /**
  * Create Async Module Component
- * @param getComponent {Function}
- * @param store {Object}
- * @param getModels {Function[]}
- * @param getReducers {Function[]}
- * @returns {{new(*): AsyncComponent, state: {Component: null}, contextType?: React.Context<any>, new<P, S>(props: Readonly<P>): AsyncComponent, new<P, S>(props: P, context?: any): AsyncComponent, new<P, S>(props: (Readonly<P> | P)): AsyncComponent, new<P, S>(props: P, context: any): AsyncComponent, prototype: AsyncComponent}}
+ * @param getComponent
+ * @param store
+ * @param getModels
+ * @param getReducers
  */
 export default (getComponent, store, getModels, getReducers) => class AsyncComponent extends Component {
 
