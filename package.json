@@ -33,7 +33,7 @@
     "dependencies": {
         "react": ">=16.x",
         "react-vivy": "^2.0.0-alpha.1",
-        "vivy": "^3.0.0-alpha.6"
+        "vivy": "^3.0.0-alpha.8"
     },
     "devDependencies": {
         "@typescript-eslint/eslint-plugin": "^5.54.1",
@@ -47,6 +47,6 @@
         "react-router": "^5.2.1",
         "rimraf": "^4.3.1",
         "typescript": "^4.9.5",
-        "vivy-router": "^3.0.0-alpha.1"
+        "vivy-router": "^3.0.0-alpha.2"
     }
 }
