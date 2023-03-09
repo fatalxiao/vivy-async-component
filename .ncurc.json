@@ -2,6 +2,7 @@
     "upgrade": true,
     "reject": [
         "react",
+        "react-vivy",
         "vivy"
     ]
 }
