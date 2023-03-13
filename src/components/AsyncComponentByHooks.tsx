@@ -21,8 +21,8 @@ import {
  * @param getReducers
  */
 export const AsyncComponent = (
-    getComponent: () => Promise<any>, store: VivyStore,
-    getModels: (() => Promise<any>)[], getReducers: (() => Promise<any>)[]
+    getComponent?: () => Promise<any>, store?: VivyStore,
+    getModels?: (() => Promise<any>)[], getReducers?: (() => Promise<any>)[]
 ) => (props: object) => {
 
     /**
@@ -34,7 +34,7 @@ export const AsyncComponent = (
      * get "overwriteSameNameSpaceModel" from vivy option
      */
     const overwriteSameNameSpaceModel = useMemo(() => {
-        return store.getState()[VIVY_OPTION_REDUCER_NAME_SPACE]?.overwriteSameNameSpaceModel || false;
+        return store?.getState()[VIVY_OPTION_REDUCER_NAME_SPACE]?.overwriteSameNameSpaceModel || false;
     }, []);
 
     /**
@@ -76,7 +76,7 @@ export const AsyncComponent = (
         const modelModule = await getModel();
         const model = modelModule?.default || modelModule;
 
-        if (!overwriteSameNameSpaceModel && store.asyncReducers.hasOwnProperty(model?.nameSpace)) {
+        if (!overwriteSameNameSpaceModel && store?.asyncReducers.hasOwnProperty(model?.nameSpace)) {
             return null;
         }
 
@@ -109,7 +109,7 @@ export const AsyncComponent = (
     const loadReducer = useCallback(async (nameSpace: string, getReducer: () => Promise<any>) => {
 
         if (!nameSpace || !getReducer || typeof getReducer !== 'function'
-            || (!overwriteSameNameSpaceModel && store.asyncReducers.hasOwnProperty(nameSpace))) {
+            || (!overwriteSameNameSpaceModel && store?.asyncReducers.hasOwnProperty(nameSpace))) {
             return [];
         }
 
