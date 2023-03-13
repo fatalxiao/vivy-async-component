@@ -7,13 +7,14 @@
 import createAsyncComponentLoading from './models/asyncComponentLoading';
 
 // Middlewares
-import createAsyncComponentLoadingMiddleware from './middlewares/AsyncComponentLoadingMiddleware'
+import createAsyncComponentLoadingMiddleware from './middlewares/AsyncComponentLoadingMiddleware';
 
 // Hooks
 import {useModel, useModelState} from 'react-vivy';
 
 // Types
 import {VivyAsyncComponentPluginOption} from 'src/types';
+import {VivyPlugin} from 'vivy';
 
 /**
  * Default Vivy async component options
@@ -49,7 +50,7 @@ export function useAsyncComponentLoading() {
  * @param options {Object}
  * @returns {Object}
  */
-export default function VivyAsyncComponent(options: VivyAsyncComponentPluginOption = {}) {
+export default function VivyAsyncComponent(options: VivyAsyncComponentPluginOption = {}): VivyPlugin {
 
     const op = {...DEFAULT_OPTIONS, ...options};
 
