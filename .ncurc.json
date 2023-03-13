@@ -2,6 +2,7 @@
     "upgrade": true,
     "reject": [
         "react",
+        "react-dom",
         "react-vivy",
         "vivy"
     ]
