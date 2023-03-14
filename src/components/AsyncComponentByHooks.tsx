@@ -20,7 +20,7 @@ import {
  * @param getModels
  * @param getReducers
  */
-export const AsyncComponent = (
+export const AsyncComponentByHooks = (
     getComponent?: () => Promise<any>, store?: VivyStore,
     getModels?: (() => Promise<any>)[], getReducers?: (() => Promise<any>)[]
 ) => (props: object) => {
@@ -52,7 +52,7 @@ export const AsyncComponent = (
      * Dispatch loading Component complete action
      */
     const loadCompleteCallback = useCallback((
-        models: VivyModel[], reducers: object, Cmpnt: ComponentClass
+        models: VivyModel<any>[], reducers: object, Cmpnt: ComponentClass
     ) => store?.dispatch({
         type: ASYNC_COMPONENT_LOADING_COMPLETE,
         getComponent,
@@ -197,6 +197,6 @@ export const AsyncComponent = (
         init
     ]);
 
-    return Cmpnt && createElement(Cmpnt, props as any) || null
+    return Cmpnt && createElement(Cmpnt, props as any) || null;
 
 };

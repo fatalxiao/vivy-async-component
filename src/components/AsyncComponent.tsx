@@ -70,7 +70,7 @@ export const AsyncComponent = (
      * @param Cmpnt
      */
     loadCompleteCallback = (
-        models: VivyModel[], reducers: object, Cmpnt: ComponentClass
+        models: VivyModel<any>[], reducers: object, Cmpnt: ComponentClass
     ) => {
         store?.dispatch({
             type: ASYNC_COMPONENT_LOADING_COMPLETE,

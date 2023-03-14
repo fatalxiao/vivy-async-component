@@ -28,6 +28,7 @@ let optionAsyncComponentLoadingModelNameSpace: string;
 
 export * from './types';
 export {AsyncComponent} from './components/AsyncComponent';
+export {AsyncComponentByHooks} from './components/AsyncComponentByHooks';
 
 /**
  * A hook to access the state and reducers from vivy async component model.

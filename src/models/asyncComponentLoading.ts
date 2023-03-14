@@ -15,7 +15,7 @@ import {Hook} from '../types';
  */
 export default function createAsyncComponentLoading(
     nameSpace: string, onLoadStart?: Hook, onLoadComplete?: Hook
-): VivyModel {
+): VivyModel<boolean> {
     return {
         nameSpace: nameSpace || 'asyncComponentLoading',
         state: false,
