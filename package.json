@@ -38,8 +38,8 @@
     },
     "dependencies": {
         "react": ">=16.x",
-        "react-vivy": ">=2.x",
-        "vivy": ">=3.1.x"
+        "react-vivy": ">=2.2.x",
+        "vivy": ">=3.2.x"
     },
     "devDependencies": {
         "@typescript-eslint/eslint-plugin": "^5.55.0",
