@@ -3,17 +3,22 @@
     "author": "liangxiaojun",
     "version": "3.1.0",
     "description": "A Vivy plugin which loading async component and async Vivy model to easily split chunks by route.",
-    "main": "./esm/index.js",
+    "main": "lib/index.js",
+    "module": "es/index.js",
+    "types": "es/index.d.ts",
     "files": [
-        "esm",
+        "lib",
+        "es",
         "src",
         "LICENSE",
         "README.md"
     ],
     "scripts": {
-        "clean": "rimraf esm",
+        "clean": "rimraf lib es",
         "test": "cross-env NODE_ENV=test jest test/**.test.js",
-        "build": "npm run clean && tsc",
+        "build:commonjs": "tsc --module commonjs --declaration false --outDir lib",
+        "build:es": "tsc --module esnext --declaration true --outDir es",
+        "build": "npm run clean && npm run build:commonjs && npm run build:es",
         "do-publish": "npm run build && npm publish"
     },
     "repository": {
@@ -47,6 +52,6 @@
         "react-router": "^6.9.0",
         "rimraf": "^4.4.0",
         "typescript": "^4.9.5",
-        "vivy-router": "^3.0.2"
+        "vivy-router": "^3.1.0"
     }
 }
