@@ -1,5 +1,5 @@
 /**
- * @file testModel.js
+ * @file testModel.ts
  */
 
 export default {

@@ -1,5 +1,5 @@
 /**
- * @file TestComponent.js
+ * @file TestComponent.tsx
  */
 
 import PropTypes from 'prop-types';
@@ -13,6 +13,6 @@ TestComponent.propTypes = {
     asyncComponentLoading: PropTypes.bool
 };
 
-export default connect(state => ({
+export default connect((state: { asyncComponentLoading: boolean }) => ({
     asyncComponentLoading: state.asyncComponentLoading
 }))(TestComponent);

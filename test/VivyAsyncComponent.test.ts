@@ -2,7 +2,7 @@
 
 import Vivy from 'vivy';
 import VivyRouter from 'vivy-router';
-import VivyAsyncComponent, {AsyncComponent} from '../src';
+import VivyAsyncComponent, {AsyncComponent} from 'src';
 
 // History
 import {createMemoryHistory} from 'history';
