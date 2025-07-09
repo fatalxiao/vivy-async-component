@@ -3,16 +3,22 @@
  * @author Liangxiaojun
  */
 
-import { Component, ComponentClass, createElement } from 'react';
+// Components
+import { Component, Suspense } from 'react';
 
-// ReducerNameSpaces
-import { VIVY_OPTION_REDUCER_NAME_SPACE, VivyModel, VivyStore } from 'vivy';
+// Vendors
+import { createElement } from 'react';
 
-// Action Types
+// Statics
+import { VIVY_OPTION_REDUCER_NAME_SPACE } from 'vivy';
 import {
     ASYNC_COMPONENT_LOADING_COMPLETE,
     ASYNC_COMPONENT_LOADING_START,
 } from '../actionTypes/AsyncComponentLoadingActionType';
+
+// Types
+import type { ComponentClass, ReactNode } from 'react';
+import type { VivyModel, VivyStore } from 'vivy';
 
 /**
  * Create Async Module Component
@@ -20,12 +26,14 @@ import {
  * @param store
  * @param getModels
  * @param getReducers
+ * @param fallback
  */
 export const AsyncComponent = (
     getComponent?: () => Promise<any>,
     store?: VivyStore,
     getModels?: (() => Promise<any>)[],
     getReducers?: (() => Promise<any>)[],
+    fallback?: ReactNode,
 ) =>
     class AsyncComponentClass extends Component<
         object,
@@ -219,6 +227,10 @@ export const AsyncComponent = (
 
         render() {
             const { Cmpnt } = this.state;
-            return (Cmpnt && createElement(Cmpnt, this.props as any)) || null;
+            return (
+                <Suspense fallback={fallback}>
+                    {(Cmpnt && createElement(Cmpnt, this.props)) || null}
+                </Suspense>
+            );
         }
     };
