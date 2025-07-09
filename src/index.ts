@@ -3,18 +3,16 @@
  * @author Liangxiaojun
  */
 
-// Models
-import createAsyncComponentLoading from './models/asyncComponentLoading';
-
-// Middlewares
-import createAsyncComponentLoadingMiddleware from './middlewares/AsyncComponentLoadingMiddleware';
-
 // Hooks
 import { useModel, useModelState } from 'react-vivy';
 
+// Vendors
+import createAsyncComponentLoadingMiddleware from './middlewares/AsyncComponentLoadingMiddleware';
+import createAsyncComponentLoading from './models/asyncComponentLoading';
+
 // Types
-import { VivyPlugin } from 'vivy';
-import { VivyAsyncComponentPluginOption } from './types';
+import type { VivyPlugin } from 'vivy';
+import type { VivyAsyncComponentPluginOption } from './types';
 
 /**
  * Default Vivy async component options
@@ -27,7 +25,7 @@ let optionAsyncComponentLoadingModelNameSpace: string;
 
 export { AsyncComponent } from './components/AsyncComponent';
 export { AsyncComponentByHooks } from './components/AsyncComponentByHooks';
-export * from './types';
+export type * from './types';
 
 /**
  * A hook to access the state and reducers from vivy async component model.

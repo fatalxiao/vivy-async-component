@@ -3,16 +3,19 @@
  * @author Liangxiaojun
  */
 
-import { Component, ComponentClass, createElement } from 'react';
-
-// ReducerNameSpaces
-import { VIVY_OPTION_REDUCER_NAME_SPACE, VivyModel, VivyStore } from 'vivy';
-
-// Action Types
+// Statics
+import { VIVY_OPTION_REDUCER_NAME_SPACE } from 'vivy';
 import {
     ASYNC_COMPONENT_LOADING_COMPLETE,
     ASYNC_COMPONENT_LOADING_START,
 } from '../actionTypes/AsyncComponentLoadingActionType';
+
+// Vendors
+import { cloneElement, Component, createElement, isValidElement } from 'react';
+
+// Types
+import type { ComponentClass, ReactElement } from 'react';
+import type { VivyModel, VivyStore } from 'vivy';
 
 /**
  * Create Async Module Component
@@ -26,6 +29,7 @@ export const AsyncComponent = (
     store?: VivyStore,
     getModels?: (() => Promise<any>)[],
     getReducers?: (() => Promise<any>)[],
+    container?: ReactElement,
 ) =>
     class AsyncComponentClass extends Component<
         object,
@@ -219,6 +223,17 @@ export const AsyncComponent = (
 
         render() {
             const { Cmpnt } = this.state;
-            return (Cmpnt && createElement(Cmpnt, this.props as any)) || null;
+
+            if (!Cmpnt) {
+                return null;
+            }
+
+            const cmpnt = createElement(Cmpnt, this.props as any);
+
+            if (isValidElement(container)) {
+                return cloneElement(container, {}, cmpnt);
+            }
+
+            return cmpnt;
         }
     };
