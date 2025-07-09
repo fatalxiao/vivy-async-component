@@ -3,10 +3,9 @@
  */
 
 import React from 'react';
-import {useModelState} from 'react-vivy';
+import { useModelState } from 'react-vivy';
 
 const B = () => {
-
     /**
      * Get state from model using hook "useModelState".
      */
@@ -18,7 +17,6 @@ const B = () => {
             <div>{modelBState}</div>
         </>
     );
-
 };
 
 export default B;
