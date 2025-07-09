@@ -3,23 +3,22 @@
  * @author Liangxiaojun
  */
 
-import {
-    ComponentClass,
-    createElement,
-    useCallback,
-    useEffect,
-    useMemo,
-    useState,
-} from 'react';
+// Hooks
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
-// ReducerNameSpaces
-import { VIVY_OPTION_REDUCER_NAME_SPACE, VivyModel, VivyStore } from 'vivy';
-
-// Action Types
+// Statics
+import { VIVY_OPTION_REDUCER_NAME_SPACE } from 'vivy';
 import {
     ASYNC_COMPONENT_LOADING_COMPLETE,
     ASYNC_COMPONENT_LOADING_START,
 } from '../actionTypes/AsyncComponentLoadingActionType';
+
+// Vendors
+import { createElement } from 'react';
+
+// Types
+import type { ComponentClass, ReactNode } from 'react';
+import type { VivyModel, VivyStore } from 'vivy';
 
 /**
  * Create Async Module Component
@@ -27,6 +26,7 @@ import {
  * @param store
  * @param getModels
  * @param getReducers
+ * @param fallback
  */
 export const AsyncComponentByHooks =
     (
@@ -34,6 +34,7 @@ export const AsyncComponentByHooks =
         store?: VivyStore,
         getModels?: (() => Promise<any>)[],
         getReducers?: (() => Promise<any>)[],
+        fallback?: ReactNode,
     ) =>
     (props: object) => {
         /**
@@ -230,5 +231,5 @@ export const AsyncComponentByHooks =
             runInit();
         }, [init]);
 
-        return (Cmpnt && createElement(Cmpnt, props as any)) || null;
+        return Cmpnt ? createElement(Cmpnt, props) || null : fallback;
     };
