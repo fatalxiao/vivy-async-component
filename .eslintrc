@@ -8,10 +8,12 @@
     },
     "extends": [
         "eslint:recommended",
+        "prettier",
         "plugin:jest/recommended"
     ],
     "plugins": [
         "@typescript-eslint/eslint-plugin",
+        "prettier",
         "jest"
     ],
     "root": true,

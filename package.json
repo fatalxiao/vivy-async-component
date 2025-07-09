@@ -1,8 +1,23 @@
 {
     "name": "vivy-async-component",
-    "author": "liangxiaojun",
     "version": "3.2.1",
     "description": "A Vivy plugin which loading async component and async Vivy model to easily split chunks by route.",
+    "keywords": [
+        "react",
+        "redux",
+        "router",
+        "react-router",
+        "vivy"
+    ],
+    "bugs": {
+        "url": "https://github.com/fatalxiao/vivy-async-component/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/fatalxiao/vivy-async-component"
+    },
+    "license": "MIT",
+    "author": "liangxiaojun",
     "main": "lib/index.js",
     "module": "es/index.js",
     "types": "es/index.d.ts",
@@ -14,35 +29,22 @@
         "README.md"
     ],
     "scripts": {
-        "clean": "rimraf lib es",
-        "test": "cross-env NODE_ENV=test jest test/**.test.ts",
+        "build": "npm run clean && npm run build:commonjs && npm run build:es",
         "build:commonjs": "tsc --project tsconfig.build.json --module commonjs --declaration false --outDir lib",
         "build:es": "tsc --project tsconfig.build.json --module esnext --declaration true --outDir es",
-        "build": "npm run clean && npm run build:commonjs && npm run build:es",
-        "do-publish": "npm run build && npm publish"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/fatalxiao/vivy-async-component"
-    },
-    "keywords": [
-        "react",
-        "redux",
-        "router",
-        "react-router",
-        "vivy"
-    ],
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/fatalxiao/vivy-async-component/issues"
+        "clean": "rimraf lib es",
+        "do-publish": "npm run build && npm publish",
+        "test": "cross-env NODE_ENV=test jest test/**.test.ts"
     },
     "dependencies": {
-        "react": ">=16.x",
+        "react": "^16.8 || ^17.0 || ^18.0",
         "react-vivy": ">=2.2.x",
         "vivy": ">=3.2.x"
     },
     "devDependencies": {
         "@types/jest": "^29.5.0",
+        "@types/react": "^18.3.23",
+        "@types/react-dom": "^18.3.7",
         "@typescript-eslint/eslint-plugin": "^5.57.0",
         "@typescript-eslint/parser": "^5.57.0",
         "cross-env": "^7.0.3",
