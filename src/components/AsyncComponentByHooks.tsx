@@ -3,22 +3,23 @@
  * @author Liangxiaojun
  */
 
-// Hooks
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import {
+    ComponentClass,
+    createElement,
+    useCallback,
+    useEffect,
+    useMemo,
+    useState,
+} from 'react';
 
-// Statics
-import { VIVY_OPTION_REDUCER_NAME_SPACE } from 'vivy';
+// ReducerNameSpaces
+import { VIVY_OPTION_REDUCER_NAME_SPACE, VivyModel, VivyStore } from 'vivy';
+
+// Action Types
 import {
     ASYNC_COMPONENT_LOADING_COMPLETE,
     ASYNC_COMPONENT_LOADING_START,
 } from '../actionTypes/AsyncComponentLoadingActionType';
-
-// Vendors
-import { cloneElement, createElement, isValidElement } from 'react';
-
-// Types
-import type { ComponentClass, ReactElement } from 'react';
-import type { VivyModel, VivyStore } from 'vivy';
 
 /**
  * Create Async Module Component
@@ -33,7 +34,6 @@ export const AsyncComponentByHooks =
         store?: VivyStore,
         getModels?: (() => Promise<any>)[],
         getReducers?: (() => Promise<any>)[],
-        container?: ReactElement,
     ) =>
     (props: object) => {
         /**
@@ -230,15 +230,5 @@ export const AsyncComponentByHooks =
             runInit();
         }, [init]);
 
-        if (!Cmpnt) {
-            return null;
-        }
-
-        const cmpnt = createElement(Cmpnt, props as any);
-
-        if (isValidElement(container)) {
-            return cloneElement(container, {}, cmpnt);
-        }
-
-        return cmpnt;
+        return (Cmpnt && createElement(Cmpnt, props as any)) || null;
     };

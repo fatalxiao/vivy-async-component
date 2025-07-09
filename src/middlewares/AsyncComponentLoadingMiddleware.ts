@@ -3,7 +3,7 @@
  * @author Liangxiaojun
  */
 
-// Statics
+// Action Types
 import {
     ASYNC_COMPONENT_LOADING_COMPLETE,
     ASYNC_COMPONENT_LOADING_START,

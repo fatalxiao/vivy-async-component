@@ -4,8 +4,8 @@
  */
 
 // Types
-import type { VivyModel } from 'vivy';
-import type { Hook } from '../types';
+import { VivyModel } from 'vivy';
+import { Hook } from '../types';
 
 /**
  * Create asyncComponentLoading model
