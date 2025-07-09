@@ -4,8 +4,8 @@
  */
 
 // Types
-import { VivyModel } from 'vivy';
-import { Hook } from '../types';
+import {VivyModel} from 'vivy';
+import {Hook} from '../types';
 
 /**
  * Create asyncComponentLoading model
@@ -14,19 +14,18 @@ import { Hook } from '../types';
  * @param onLoadComplete
  */
 export default function createAsyncComponentLoading(
-    nameSpace: string,
-    onLoadStart?: Hook,
-    onLoadComplete?: Hook,
+    nameSpace: string, onLoadStart?: Hook, onLoadComplete?: Hook
 ): VivyModel<boolean> {
     return {
         nameSpace: nameSpace || 'asyncComponentLoading',
         state: false,
         reducers: {
+
             /**
              * Start loading async component
              */
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            start: (state: boolean, { type, ...restActionProps }): boolean => {
+            start: (state: boolean, {type, ...restActionProps}): boolean => {
                 onLoadStart?.(restActionProps);
                 return true;
             },
@@ -35,13 +34,11 @@ export default function createAsyncComponentLoading(
              * Load async component complete
              */
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            complete: (
-                state: boolean,
-                { type, ...restActionProps },
-            ): boolean => {
+            complete: (state: boolean, {type, ...restActionProps}): boolean => {
                 onLoadComplete?.(restActionProps);
                 return false;
-            },
-        },
+            }
+
+        }
     };
 }

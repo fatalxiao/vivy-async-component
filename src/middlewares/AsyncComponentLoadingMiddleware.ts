@@ -5,12 +5,11 @@
 
 // Action Types
 import {
-    ASYNC_COMPONENT_LOADING_COMPLETE,
-    ASYNC_COMPONENT_LOADING_START,
+    ASYNC_COMPONENT_LOADING_START, ASYNC_COMPONENT_LOADING_COMPLETE
 } from '../actionTypes/AsyncComponentLoadingActionType';
 
 // Types
-import type { Action, Middleware } from 'vivy';
+import {Middleware} from 'vivy';
 
 /**
  * Timeout duration
@@ -27,48 +26,49 @@ let timeoutId: number;
  * Create Async Component Loading Middleware
  * @param asyncComponentLoadingModelNameSpace
  */
-export default function (
-    asyncComponentLoadingModelNameSpace: string,
-): Middleware {
-    return ({ dispatch, getState }) =>
-        (next) =>
-        (action) => {
-            // Whether async component is loading
-            const loading = getState()?.[asyncComponentLoadingModelNameSpace];
+export default function (asyncComponentLoadingModelNameSpace: string): Middleware {
+    return ({dispatch, getState}) => next => action => {
 
-            // Start loading
-            if ((action as Action).type === ASYNC_COMPONENT_LOADING_START) {
-                // Clear timeout
-                timeoutId && clearTimeout(timeoutId);
+        // Whether async component is loading
+        const loading = getState()?.[asyncComponentLoadingModelNameSpace];
 
-                // Dispatch start loading component action
-                !loading &&
-                    dispatch({
-                        ...(action as Action),
-                        type: `${asyncComponentLoadingModelNameSpace}/start`,
-                    });
-            }
+        // Start loading
+        if (action.type === ASYNC_COMPONENT_LOADING_START) {
 
-            // Loading complete
-            else if (
-                (action as Action).type === ASYNC_COMPONENT_LOADING_COMPLETE
-            ) {
+            // Clear timeout
+            timeoutId && clearTimeout(timeoutId);
+
+            // Dispatch start loading component action
+            !loading && dispatch({
+                ...action,
+                type: `${asyncComponentLoadingModelNameSpace}/start`
+            });
+
+        }
+
+        // Loading complete
+        else if (action.type === ASYNC_COMPONENT_LOADING_COMPLETE) {
+
+            // Clear time out
+            timeoutId && clearTimeout(timeoutId);
+
+            // Set timeout
+            timeoutId = window.setTimeout(() => {
+
                 // Clear time out
                 timeoutId && clearTimeout(timeoutId);
 
-                // Set timeout
-                timeoutId = window.setTimeout(() => {
-                    // Clear time out
-                    timeoutId && clearTimeout(timeoutId);
+                // Dispatch loading component complete action
+                dispatch({
+                    ...action,
+                    type: `${asyncComponentLoadingModelNameSpace}/complete`
+                });
 
-                    // Dispatch loading component complete action
-                    dispatch({
-                        ...(action as Action),
-                        type: `${asyncComponentLoadingModelNameSpace}/complete`,
-                    });
-                }, DURATION);
-            }
+            }, DURATION);
 
-            return next(action);
-        };
+        }
+
+        return next(action);
+
+    };
 }
