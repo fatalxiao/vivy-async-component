@@ -1,8 +1,23 @@
 {
     "name": "vivy-async-component",
-    "author": "liangxiaojun",
     "version": "3.2.1",
     "description": "A Vivy plugin which loading async component and async Vivy model to easily split chunks by route.",
+    "keywords": [
+        "react",
+        "redux",
+        "router",
+        "react-router",
+        "vivy"
+    ],
+    "bugs": {
+        "url": "https://github.com/fatalxiao/vivy-async-component/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/fatalxiao/vivy-async-component"
+    },
+    "license": "MIT",
+    "author": "liangxiaojun",
     "main": "lib/index.js",
     "module": "es/index.js",
     "types": "es/index.d.ts",
@@ -14,27 +29,15 @@
         "README.md"
     ],
     "scripts": {
-        "clean": "rimraf lib es",
-        "test": "cross-env NODE_ENV=test jest test/**.test.ts",
+        "build": "npm run clean && npm run build:commonjs && npm run build:es",
         "build:commonjs": "tsc --project tsconfig.build.json --module commonjs --declaration false --outDir lib",
         "build:es": "tsc --project tsconfig.build.json --module esnext --declaration true --outDir es",
-        "build": "npm run clean && npm run build:commonjs && npm run build:es",
-        "do-publish": "npm run build && npm publish"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/fatalxiao/vivy-async-component"
-    },
-    "keywords": [
-        "react",
-        "redux",
-        "router",
-        "react-router",
-        "vivy"
-    ],
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/fatalxiao/vivy-async-component/issues"
+        "clean": "rimraf lib es",
+        "do-publish": "npm run build && npm publish",
+        "premajor:alpha": "npm version premajor --preid=alpha",
+        "preminor:alpha": "npm version preminor --preid=alpha",
+        "prerelease:alpha": "npm version prerelease --preid=alpha",
+        "test": "cross-env NODE_ENV=test jest test/**.test.ts"
     },
     "dependencies": {
         "react": ">=16.x",
