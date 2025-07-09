@@ -4,5 +4,5 @@
 
 export default {
     nameSpace: 'testModel',
-    state: 0
+    state: 0,
 };

@@ -10,24 +10,24 @@ import createAsyncComponentLoading from './models/asyncComponentLoading';
 import createAsyncComponentLoadingMiddleware from './middlewares/AsyncComponentLoadingMiddleware';
 
 // Hooks
-import {useModel, useModelState} from 'react-vivy';
+import { useModel, useModelState } from 'react-vivy';
 
 // Types
-import {VivyAsyncComponentPluginOption} from './types';
-import {VivyPlugin} from 'vivy';
+import { VivyPlugin } from 'vivy';
+import { VivyAsyncComponentPluginOption } from './types';
 
 /**
  * Default Vivy async component options
  */
 const DEFAULT_OPTIONS = {
-    asyncComponentLoadingModelNameSpace: 'asyncComponentLoading'
+    asyncComponentLoadingModelNameSpace: 'asyncComponentLoading',
 };
 
 let optionAsyncComponentLoadingModelNameSpace: string;
 
+export { AsyncComponent } from './components/AsyncComponent';
+export { AsyncComponentByHooks } from './components/AsyncComponentByHooks';
 export * from './types';
-export {AsyncComponent} from './components/AsyncComponent';
-export {AsyncComponentByHooks} from './components/AsyncComponentByHooks';
 
 /**
  * A hook to access the state and reducers from vivy async component model.
@@ -48,28 +48,29 @@ export function useAsyncComponentLoading() {
  * @param options {Object}
  * @returns {Object}
  */
-export default function VivyAsyncComponent(options: VivyAsyncComponentPluginOption = {}): VivyPlugin {
+export default function VivyAsyncComponent(
+    options: VivyAsyncComponentPluginOption = {},
+): VivyPlugin {
+    const op = { ...DEFAULT_OPTIONS, ...options };
 
-    const op = {...DEFAULT_OPTIONS, ...options};
+    const { asyncComponentLoadingModelNameSpace, onLoadStart, onLoadComplete } =
+        op;
 
-    const {
-        asyncComponentLoadingModelNameSpace,
-        onLoadStart, onLoadComplete
-    } = op;
-
-    optionAsyncComponentLoadingModelNameSpace = asyncComponentLoadingModelNameSpace;
+    optionAsyncComponentLoadingModelNameSpace =
+        asyncComponentLoadingModelNameSpace;
 
     return {
         extraMiddlewares: [
-            createAsyncComponentLoadingMiddleware(asyncComponentLoadingModelNameSpace)
+            createAsyncComponentLoadingMiddleware(
+                asyncComponentLoadingModelNameSpace,
+            ),
         ],
         extraModels: [
             createAsyncComponentLoading(
                 asyncComponentLoadingModelNameSpace,
                 onLoadStart,
-                onLoadComplete
-            )
-        ]
+                onLoadComplete,
+            ),
+        ],
     };
-
 }

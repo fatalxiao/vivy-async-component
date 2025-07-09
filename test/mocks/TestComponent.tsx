@@ -3,16 +3,14 @@
  */
 
 import PropTypes from 'prop-types';
-import {connect} from 'react-vivy';
+import { connect } from 'react-vivy';
 
-const TestComponent = ({
-    asyncComponentLoading
-}) => asyncComponentLoading;
+const TestComponent = ({ asyncComponentLoading }) => asyncComponentLoading;
 
 TestComponent.propTypes = {
-    asyncComponentLoading: PropTypes.bool
+    asyncComponentLoading: PropTypes.bool,
 };
 
 export default connect((state: { asyncComponentLoading: boolean }) => ({
-    asyncComponentLoading: state.asyncComponentLoading
+    asyncComponentLoading: state.asyncComponentLoading,
 }))(TestComponent);
