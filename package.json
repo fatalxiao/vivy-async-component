@@ -34,6 +34,7 @@
         "build:es": "tsc --project tsconfig.build.json --module esnext --declaration true --outDir es",
         "clean": "rimraf lib es",
         "do-publish": "npm run build && npm publish",
+        "do-publish:alpha": "npm run build && npm publish --tag alpha",
         "premajor:alpha": "npm version premajor --preid=alpha",
         "preminor:alpha": "npm version preminor --preid=alpha",
         "prerelease:alpha": "npm version prerelease --preid=alpha",
