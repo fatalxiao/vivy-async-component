@@ -4,7 +4,7 @@
 
 // Vendors
 const path = require('path');
-const { merge } = require('webpack-merge');
+const {merge} = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // Base config
@@ -14,18 +14,18 @@ module.exports = merge(baseConfig, {
     entry: path.join(__dirname, './src/index.js'),
     output: {
         filename: 'index.[hash].js',
-        path: path.join(__dirname, './dist'),
+        path: path.join(__dirname, './dist')
     },
     devServer: {
         static: path.join(__dirname, './dist'),
         open: true,
         hot: true,
         port: 3000,
-        historyApiFallback: true,
+        historyApiFallback: true
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: path.join(__dirname, './src/index.html'),
-        }),
-    ],
+            template: path.join(__dirname, './src/index.html')
+        })
+    ]
 });

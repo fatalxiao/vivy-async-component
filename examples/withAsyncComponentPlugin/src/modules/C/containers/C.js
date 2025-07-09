@@ -3,9 +3,10 @@
  */
 
 import React from 'react';
-import { useModelState } from 'react-vivy';
+import {useModelState} from 'react-vivy';
 
 const C = () => {
+
     /**
      * Get state from model using hook "useModelState".
      */
@@ -17,6 +18,7 @@ const C = () => {
             <div>{modelCState}</div>
         </>
     );
+
 };
 
 export default C;

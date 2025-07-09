@@ -4,5 +4,5 @@
 
 export default {
     nameSpace: 'c',
-    state: 'Here is Module C.',
+    state: 'Here is Module C.'
 };

@@ -4,51 +4,55 @@
 
 /* eslint-disable no-magic-numbers */
 module.exports = {
-    env: {
-        browser: true,
-        node: true,
-        es6: true,
+    'env': {
+        'browser': true,
+        'node': true,
+        'es6': true
     },
-    extends: ['plugin:react/recommended', 'plugin:react-hooks/recommended'],
-    globals: {
-        Atomics: 'readonly',
-        SharedArrayBuffer: 'readonly',
+    'extends': [
+        'plugin:react/recommended',
+        'plugin:react-hooks/recommended'
+    ],
+    'globals': {
+        'Atomics': 'readonly',
+        'SharedArrayBuffer': 'readonly'
     },
-    parser: '@babel/eslint-parser',
-    parserOptions: {
-        ecmaFeatures: {
-            jsx: true,
+    'parser': '@babel/eslint-parser',
+    'parserOptions': {
+        'ecmaFeatures': {
+            'jsx': true
         },
-        ecmaVersion: 2018,
-        sourceType: 'module',
+        'ecmaVersion': 2018,
+        'sourceType': 'module'
     },
-    settings: {
-        react: {
-            createClass: 'createReactClass',
-            pragma: 'React',
-            version: 'detect',
-            flowVersion: '0.53',
+    'settings': {
+        'react': {
+            'createClass': 'createReactClass',
+            'pragma': 'React',
+            'version': 'detect',
+            'flowVersion': '0.53'
         },
-        propWrapperFunctions: [
-            'forbidExtraProps',
-            {
-                property: 'freeze',
-                object: 'Object',
-            },
-            {
-                property: 'myFavoriteWrapper',
-            },
+        'propWrapperFunctions': [
+            'forbidExtraProps', {
+                'property': 'freeze',
+                'object': 'Object'
+            }, {
+                'property': 'myFavoriteWrapper'
+            }
         ],
-        linkComponents: [
-            'Hyperlink',
-            {
-                name: 'Link',
-                linkAttribute: 'to',
-            },
-        ],
+        'linkComponents': [
+            'Hyperlink', {
+                'name': 'Link',
+                'linkAttribute': 'to'
+            }
+        ]
     },
-    plugins: ['react', 'react-hooks'],
-    rules: {
+    'plugins': [
+        'react',
+        'react-hooks'
+    ],
+    'rules': {
+
         'no-cond-assign': 2,
         'no-constant-condition': 2,
         'no-control-regex': 2,
@@ -76,10 +80,10 @@ module.exports = {
         'valid-typeof': 2,
 
         'accessor-pairs': 2,
-        complexity: [2, 20],
-        curly: [2, 'all'],
+        'complexity': [2, 20],
+        'curly': [2, 'all'],
         'dot-location': [2, 'property'],
-        eqeqeq: [2, 'allow-null'],
+        'eqeqeq': [2, 'allow-null'],
         'guard-for-in': 2,
         'no-caller': 2,
         'no-case-declarations': 2,
@@ -115,133 +119,94 @@ module.exports = {
         'no-useless-call': 2,
         'no-useless-concat': 2,
         'no-with': 2,
-        radix: 2,
+        'radix': 2,
         'wrap-iife': [2, 'any'],
-        yoda: [2, 'never'],
+        'yoda': [2, 'never'],
 
         'no-delete-var': 2,
         'no-label-var': 2,
         'no-shadow-restricted-names': 2,
         'no-undef': 2,
         'no-undef-init': 2,
-        'no-unused-vars': [
-            2,
-            {
-                vars: 'all',
-                args: 'none',
-            },
-        ],
+        'no-unused-vars': [2, {
+            'vars': 'all',
+            'args': 'none'
+        }],
 
         'handle-callback-err': [2, '^(err|error)$'],
         'no-new-require': 2,
 
         'array-bracket-spacing': [2, 'never'],
         'block-spacing': [1, 'never'],
-        camelcase: 2,
-        'comma-spacing': [
-            2,
-            {
-                before: false,
-                after: true,
-            },
-        ],
+        'camelcase': 2,
+        'comma-spacing': [2, {
+            'before': false,
+            'after': true
+        }],
         'comma-style': [2, 'last'],
         'computed-property-spacing': [2, 'never'],
         'consistent-this': [1, 'that'],
         'eol-last': 2,
-        'key-spacing': [
-            2,
-            {
-                beforeColon: false,
-                afterColon: true,
-            },
-        ],
+        'key-spacing': [2, {
+            'beforeColon': false,
+            'afterColon': true
+        }],
         'linebreak-style': [1, 'unix'],
         'max-nested-callbacks': [1, 5],
         'keyword-spacing': 2,
         'max-statements': [1, 200],
-        'new-cap': [
-            2,
-            {
-                newIsCap: true,
-                capIsNew: false,
-            },
-        ],
+        'new-cap': [2, {
+            'newIsCap': true,
+            'capIsNew': false
+        }],
         'new-parens': 2,
         'no-array-constructor': 2,
         'no-mixed-spaces-and-tabs': 2,
-        'no-multiple-empty-lines': [
-            2,
-            {
-                max: 2,
-            },
-        ],
+        'no-multiple-empty-lines': [2, {
+            'max': 2
+        }],
         'no-new-object': 2,
         'no-spaced-func': 2,
         'no-trailing-spaces': 2,
         'no-unneeded-ternary': 2,
-        'operator-linebreak': [
-            2,
-            'after',
-            {
-                overrides: {
-                    '=': 'ignore',
-                    '==': 'ignore',
-                    '!==': 'ignore',
-                    '===': 'ignore',
-                    ':': 'ignore',
-                    '&&': 'ignore',
-                    '||': 'ignore',
-                    '+': 'ignore',
-                    '-': 'ignore',
-                    '*': 'ignore',
-                    '**': 'ignore',
-                    '/': 'ignore',
-                },
-            },
-        ],
-        quotes: [2, 'single', 'avoid-escape'],
+        'operator-linebreak': [2, 'after', {
+            'overrides': {
+                '=': 'ignore',
+                '==': 'ignore',
+                '!==': 'ignore',
+                '===': 'ignore',
+                ':': 'ignore',
+                '&&': 'ignore',
+                '||': 'ignore',
+                '+': 'ignore',
+                '-': 'ignore',
+                '*': 'ignore',
+                '**': 'ignore',
+                '/': 'ignore'
+            }
+        }],
+        'quotes': [2, 'single', 'avoid-escape'],
         'require-jsdoc': 1,
-        semi: [2, 'always'],
+        'semi': [2, 'always'],
         'space-before-blocks': [2, 'always'],
         'space-in-parens': [2, 'never'],
         'space-infix-ops': 2,
-        'space-unary-ops': [
-            2,
-            {
-                words: true,
-                nonwords: false,
-            },
-        ],
-        'spaced-comment': [
-            2,
-            'always',
-            {
-                markers: [
-                    'global',
-                    'globals',
-                    'eslint',
-                    'eslint-disable',
-                    '*package',
-                    '!',
-                ],
-            },
-        ],
+        'space-unary-ops': [2, {
+            'words': true,
+            'nonwords': false
+        }],
+        'spaced-comment': [2, 'always', {
+            'markers': ['global', 'globals', 'eslint', 'eslint-disable', '*package', '!']
+        }],
 
-        'arrow-spacing': [
-            2,
-            {
-                before: true,
-                after: true,
-            },
-        ],
-        'generator-star-spacing': [
-            2,
-            {
-                before: true,
-                after: true,
-            },
-        ],
+        'arrow-spacing': [2, {
+            'before': true,
+            'after': true
+        }],
+        'generator-star-spacing': [2, {
+            'before': true,
+            'after': true
+        }],
         'no-class-assign': 2,
         'no-const-assign': 2,
         'no-dupe-class-members': 2,
@@ -254,6 +219,7 @@ module.exports = {
         'react/no-find-dom-node': 0,
         'react/display-name': 0,
         'react-hooks/rules-of-hooks': 2,
-        'react-hooks/exhaustive-deps': 1,
-    },
+        'react-hooks/exhaustive-deps': 1
+
+    }
 };
