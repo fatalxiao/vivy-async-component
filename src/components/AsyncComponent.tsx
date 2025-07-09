@@ -4,7 +4,7 @@
  */
 
 // Components
-import { Component, Suspense } from 'react';
+import { Component } from 'react';
 
 // Vendors
 import { createElement } from 'react';
@@ -227,10 +227,6 @@ export const AsyncComponent = (
 
         render() {
             const { Cmpnt } = this.state;
-            return (
-                <Suspense fallback={fallback}>
-                    {(Cmpnt && createElement(Cmpnt, this.props)) || null}
-                </Suspense>
-            );
+            return Cmpnt ? createElement(Cmpnt, this.props) || null : fallback;
         }
     };
